@@ -1,0 +1,91 @@
+# depslib dependency file v1.0
+1668584805 source:d:\codeblocks\mingw\proyectos\spacedefenders\main.cpp
+	<GL/glut.h>
+	<stdlib.h>
+	<math.h>
+	<stdio.h>
+	<iostream>
+	<cstdlib>
+	"rgbimage.h"
+	"utils.h"
+	"player.h"
+	"scene.h"
+	"Nave.h"
+	"Enemy.h"
+	"Disparos.h"
+	<iostream>
+	<iterator>
+	<vector>
+
+1426371328 d:\codeblocks\mingw\include\gl\glut.h
+	"freeglut_std.h"
+
+1426371328 d:\codeblocks\mingw\include\gl\freeglut_std.h
+	<windows.h>
+	<EGL/egl.h>
+	<GLES/gl.h>
+	<GLES2/gl2.h>
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<stdlib.h>
+
+1668115473 d:\codeblocks\mingw\proyectos\spacedefenders\rgbimage.h
+	<stdio.h>
+	<assert.h>
+
+1668227936 d:\codeblocks\mingw\proyectos\spacedefenders\utils.h
+	<GL/glut.h>
+	<cmath>
+	"rgbimage.h"
+
+1668122383 d:\codeblocks\mingw\proyectos\spacedefenders\player.h
+	<GL/glut.h>
+	<stdio.h>
+
+1668115444 source:d:\codeblocks\mingw\proyectos\spacedefenders\rgbimage.cpp
+	"RgbImage.h"
+	<windows.h>
+	"GL/gl.h"
+
+1668228004 d:\codeblocks\mingw\proyectos\spacedefenders\scene.h
+	<vector>
+	"object.h"
+	"player.h"
+
+1668228498 d:\codeblocks\mingw\proyectos\spacedefenders\object.h
+	<GL/glut.h>
+	<string>
+	"utils.h"
+
+1668228510 source:d:\codeblocks\mingw\proyectos\spacedefenders\object.cpp
+	<GL/glut.h>
+	<cassert>
+	<string>
+	"object.h"
+
+1668228205 source:d:\codeblocks\mingw\proyectos\spacedefenders\scene.cpp
+	<cassert>
+	"scene.h"
+	"object.h"
+
+1668487581 source:d:\codeblocks\mingw\proyectos\spacedefenders\src\nave.cpp
+	"Nave.h"
+	<stdio.h>
+
+1668301611 d:\codeblocks\mingw\proyectos\spacedefenders\include\nave.h
+
+1668581025 source:d:\codeblocks\mingw\proyectos\spacedefenders\src\enemy.cpp
+	"Enemy.h"
+	<stdlib.h>
+	<stdio.h>
+
+1668576849 d:\codeblocks\mingw\proyectos\spacedefenders\include\enemy.h
+
+1668579824 source:d:\codeblocks\mingw\proyectos\spacedefenders\src\disparos.cpp
+	"Disparos.h"
+
+1668579626 d:\codeblocks\mingw\proyectos\spacedefenders\include\disparos.h
+	<stdio.h>
+
