@@ -8,7 +8,7 @@ class Disparos
         Disparos();
         Disparos(float x, float y, float z, bool disparo);
         float velocidad = .005f;
-        float disparoRadio= .05f;
+        float disparoRadio= .08f;
         float V[3];
         bool disparo;
         float radio;

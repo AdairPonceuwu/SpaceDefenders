@@ -14,7 +14,7 @@ Nave::~Nave()
 }
 
 
-void Nave::update(float delta, bool izq, bool der){
+void Nave::update(float delta, bool izq, bool der,bool adelante, bool atras){
 
     if(izq){
         V[0] -= velocidad*delta;
@@ -23,12 +23,27 @@ void Nave::update(float delta, bool izq, bool der){
         V[0] += velocidad*delta;
         }
     }
+
+    if(adelante){
+        V[2] -= velocidad*delta;
+    }else{
+        if(atras){
+            V[2] += velocidad*delta;
+        }
+    }
     //Limites
     if(V[0]<-5){
         V[0]=-5;
     }
     if(V[0]>5){
         V[0]=5;
+    }
+
+    if(V[2]<-20){
+        V[2]=-20;
+    }
+    if(V[2]>0){
+        V[2]=0;
     }
 }
 

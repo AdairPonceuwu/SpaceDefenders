@@ -11,7 +11,7 @@ class Nave
         float radio = .25f;
         float V[3];
         bool condicion;//true vivo, false muerto
-        void update(float delta, bool izq, bool der);
+        void update(float delta, bool izq, bool der,bool adelante, bool atras);
         void muerto();
     protected:
 

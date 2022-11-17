@@ -134,14 +134,16 @@ inline void drawCubes(GLuint *texture) {
     glPopMatrix();
 }
 
-inline void drawSphere(GLfloat *angulo, GLuint *texture) {
+inline void drawSphere(GLfloat *angulo, GLuint texture,float x, float y, float z) {
+
     //activando texturas
     glEnable(GL_TEXTURE_2D);
     glPushMatrix();
+    glTranslated(x,y,z);
     glRotatef(90, 1.0f, 0.0f, 0.0f);
     glRotatef(*angulo, 0.0f, 0.0f, 1.0f);
     glColor3f(1.0,1.0,1.0);
-    glBindTexture(GL_TEXTURE_2D, texture[5]);
+    glBindTexture(GL_TEXTURE_2D, texture);
     GLUquadric *qobj = gluNewQuadric();
     gluQuadricTexture( qobj, GL_TRUE );
     gluSphere( qobj, 1.0f, 20, 20 );
@@ -244,37 +246,37 @@ inline void drawRock(GLfloat *angulo, GLuint *texture) {
     };
 
     glColor3f(1.0,1.0,1.0);
-    //glEnable(GL_TEXTURE_2D);
+    glEnable(GL_TEXTURE_2D);
     glPushMatrix();
+    glTranslated(0,0,-5);
     glRotatef(*angulo, 0.0f, 0.0f, 1.0f);
-
+    glBindTexture(GL_TEXTURE_2D, texture[5]);
     glBegin(GL_TRIANGLES);
         for (int i = 0; i < (sizeof(caras) / sizeof(int)); i += 3) {
             int v1 = caras[i] * 3,
                 v2 = caras[i + 1] * 3,
                 v3 = caras[i + 2] * 3;
-
-            glBindTexture(GL_TEXTURE_2D, texture[5]);
+            glTexCoord2f(0.0,0.0);
             glVertex3f(
                 vertices[v1],
                 vertices[v1 + 1],
                 vertices[v1 + 2]
             );
-            glBindTexture(GL_TEXTURE_2D, texture[4]);
+            glTexCoord2f(0.0, 1.0);
             glVertex3f(
                 vertices[v2],
                 vertices[v2 + 1],
                 vertices[v2 + 2]
             );
-            glBindTexture(GL_TEXTURE_2D, texture[3]);
+            glTexCoord2f(1.0, 1.0);
             glVertex3f(
                 vertices[v3],
                 vertices[v3 + 1],
                 vertices[v3 + 2]
             );
         }
-    glDisable(GL_TEXTURE_2D);
     glEnd();
+    glDisable(GL_TEXTURE_2D);
 
     glPopMatrix();
     *angulo = (*angulo + 0.1 > 360) ? 0.0 : *angulo + 0.4;

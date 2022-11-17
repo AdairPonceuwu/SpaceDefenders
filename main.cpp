@@ -12,13 +12,6 @@ using namespace std;
 #include "Nave.h"
 #include "Enemy.h"
 #include "Disparos.h"
-//Borrar
-#include <iostream>
-#include <iterator>
-#include <vector>
-
-using std::cout; using std::endl;
-using std::vector; using std::remove;
 
 
 //Variables dimensiones de la pantalla
@@ -27,6 +20,8 @@ const int HEIGTH = 648;
 //VARIABLES MOVIMIENTO NAVE
 bool izqDown = false;
 bool derDown = false;
+bool adelanteDown = false;
+bool atrasDown = false;
 Scene s = Scene();
 Nave alcon = Nave(0,0,.7f);
 //float Radio=1.0;
@@ -37,12 +32,15 @@ Disparos arrDisparos[200];
 float delta=0.0000005;
 float deltaS=0.005;
 int shoots=0;
-//vector<Enemy> arrEnemies;
+//Iluminasion
+float luz_ambiente[]={0.5,0.7,0,0};
+float luz_difusa[]={1,1,1,0};
+
 
 //Dibujar enemigos
 void cargarEnemigos(){
     int i=0;
-    while(i<50){
+    while(i<40){
     for (int r = 0; r < 10; r++)
     {
         for (int c = 0; c < 5; c++)
@@ -54,20 +52,6 @@ void cargarEnemigos(){
 }
 }
 
-void init() {
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    gluPerspective(s.player.fov_y, (GLfloat)WIDTH/HEIGTH, s.player.z_near, s.player.z_far);
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-    s.player = Player();
-    //s.player.glLookAt();
-    glClearColor(0,0,0,0);
-    glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
-    glShadeModel(GL_FLAT);
-    glEnable(GL_DEPTH_TEST);
-    s.init();
-}
 
 void keypress(int key, int x, int y) {
     switch (key) {
@@ -106,6 +90,14 @@ static void keyboardDown(BYTE key, int x, int y)
                 case 'D':
                     derDown = true;
                     break;
+                case 'w':
+                case 'W':
+                    adelanteDown=true;
+                    break;
+                case 's':
+                case 'S':
+                    atrasDown=true;
+                    break;
             }
             glutPostRedisplay();
 }
@@ -123,8 +115,16 @@ static void keyboardDown(BYTE key, int x, int y)
                 case 'D':
                     derDown = false;
                     break;
+                case 'w':
+                case 'W':
+                    adelanteDown=false;
+                    break;
                 case 's':
                 case 'S':
+                    atrasDown=false;
+                    break;
+                case 'L':
+                case 'l':
                     arrDisparos[shoots]=(Disparos(alcon.V[0],alcon.V[1],alcon.V[2]-.85f,true));
                     shoots++;
             }
@@ -136,9 +136,9 @@ void update(){
     Enemy enemigo = Enemy();
     Disparos shoot = Disparos();
     //Nave
-    alcon.update(10,izqDown,derDown);
+    alcon.update(10,izqDown,derDown,adelanteDown,atrasDown);
     //Enemigos
-    for(int i=0;i<50;i++){
+    for(int i=0;i<40;i++){
         arrEnemies[i];
         delta=delta+0.000005;
         arrEnemies[i].updateEnemy(delta);
@@ -155,7 +155,7 @@ void update(){
     }
 
     //Colisiones
-    for(int i=0; i<50; i++)
+    for(int i=0; i<40; i++)
     {
         for (int j=0; j<100; j++)
         {
@@ -167,6 +167,7 @@ void update(){
                 double distanciaX = arrEnemies[i].V[0]-arrDisparos[j].V[0];
                 if(arrEnemies[i].condicion&&(sumaRadios*sumaRadios)>((distanciaZ*distanciaZ)+(distanciaX*distanciaX)))
                 {
+                    arrEnemies[i].enemy_radio=0;
                     arrEnemies[i].muerto();
                     arrDisparos[j].disparo=false;
                }
@@ -174,11 +175,11 @@ void update(){
             else
             {
                 double sumaRadios = alcon.radio + arrEnemies[i].enemy_radio;
-                double distanciaZ = alcon.V[2] - arrEnemies[i].V[2];
                 double distanciaX = alcon.V[0] - arrEnemies[i].V[0];
-                if((sumaRadios*sumaRadios)>((distanciaZ*distanciaZ)+(distanciaX*distanciaX)))
+                double distanciaZ = alcon.V[2] - arrEnemies[i].V[2];
+                if(arrEnemies[i].condicion&&(sumaRadios*sumaRadios)>((distanciaZ*distanciaZ)+(distanciaX*distanciaX)))
                 {
-                    alcon.muerto();
+                   alcon.muerto();
                 }
             }
         }
@@ -187,7 +188,7 @@ void update(){
 
 //Dibujar nave
 void dibujarNave(){
-    if(!alcon.condicion)return;
+    if(!alcon.condicion)exit(1);
     glPushMatrix();
     glTranslated(alcon.V[0],alcon.V[1],alcon.V[2]);
     glRotated(180,1,0,0);
@@ -197,14 +198,13 @@ void dibujarNave(){
 //Dibujar enemigos
 void dibujarEnemies(){
     Enemy enemigo=Enemy();
-    for(int i = 0;i<50;i++){
+    for(int i = 0;i<40;i++){
         enemigo=arrEnemies[i];
-        if(arrEnemies[i].condicion){
+        if(arrEnemies[i].condicion&&arrEnemies[i].V[2]!=0){
         glPushMatrix();
         glTranslated(enemigo.V[0],enemigo.V[1],enemigo.V[2]);
         glRotated(enemigo.angulo,0,1,0);
         glRotated(270,1,0,0);
-       // enemigo.updateEnemy(delta);
         glutSolidCone(enemigo.enemy_radio,0.3f,100,100);
         glTranslated(0,0.2f,.1);
         glutSolidCube(.2f);
@@ -217,7 +217,7 @@ void dibujarDisparos(){
     Disparos shoot = Disparos();
     for(int i = 0;i<100;i++){
         shoot=arrDisparos[i];
-        if(arrDisparos[i].disparo){
+        if(arrDisparos[i].disparo && alcon.condicion){
         glPushMatrix();
         glTranslated(shoot.V[0],shoot.V[1],shoot.V[2]);
         glutSolidSphere(shoot.radio,100,100);
@@ -226,27 +226,76 @@ void dibujarDisparos(){
     }
 
 }
+void dibujarFondo(){
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D,s.texture_map[6]);
+    glTranslated(0,0,-25);
+    glColor3f(1.0f,1.0f,1.0f);
+    glBegin(GL_QUADS);
+    glTexCoord2f(0.0f,0.0f); glVertex3f(-100.0f,-57.0f,10.0f);
+    glTexCoord2f(1.0f,0.0f); glVertex3f(100.0f,-57.0f,10.0f);
+    glTexCoord2f(1.0f,1.0f); glVertex3f(100.0f,57.0f,10.0f);
+    glTexCoord2f(0.0f,1.0f); glVertex3f(-100.0f,57.0f,10.0f);
+    glEnd();
+    glDisable(GL_TEXTURE_2D);
+    glLoadIdentity();
+}
+void setMaterial(GLfloat ambientR,GLfloat ambientG,GLfloat ambientB,
+                 GLfloat diffuseR,GLfloat diffuseG, GLfloat diffuseB,
+                 GLfloat specularR, GLfloat specularG, GLfloat specularB){
+                 GLfloat ambient[]={ambientR,ambientG,ambientB};
+                 GLfloat diffuse[]={diffuseR,diffuseG,diffuseB};
+                 GLfloat specular[]={specularR,specularG,specularB};
+                 glMaterialfv(GL_FRONT_AND_BACK,GL_AMBIENT,ambient);
+                 glMaterialfv(GL_FRONT_AND_BACK,GL_DIFFUSE,diffuse);
+                 glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,specular);
+}
+
 //--------------------------------------------------------------------------
+void luz(){
+    glLightfv(GL_LIGHT0,GL_DIFFUSE,luz_difusa);
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_COLOR_MATERIAL);
+    glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHT0);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+}
+
 void display() {
-    gluLookAt(alcon.V[0],6,2,alcon.V[0],0,-4,0,1,0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     update();
     drawAxis();
-    //drawSphere();
     //drawRock(&anguloSol, s.texture_map);
     dibujarNave();
     dibujarEnemies();
     dibujarDisparos();
+    //dibujarFondo();
+    drawSphere(&anguloSol, s.texture_map[7],5,2,-5);
     glutSwapBuffers();
     glLoadIdentity();
-    //s.player.update_pos();
-    //s.player.glLookAt();
+}
+
+
+void init() {
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    luz();
+    gluPerspective(s.player.fov_y, (GLfloat)WIDTH/HEIGTH, s.player.z_near, s.player.z_far);
+    gluLookAt(alcon.V[0],5,2,alcon.V[0],0,-4,0,1,0);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    glClearColor(0,0,0,0);
+    glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
+    glShadeModel(GL_FLAT);
+    glEnable(GL_DEPTH_TEST);
+    s.init();
 }
 
 int main(int argc, char **argv) {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-    glutInitWindowPosition(100,100);
+    glutInitWindowPosition(200,150);
     glutInitWindowSize(WIDTH, HEIGTH);
     glutCreateWindow("SpaceDefender");
     init();

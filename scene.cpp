@@ -10,6 +10,8 @@ void Scene::init() {
     char* filename3 = "texturas/textura3.bmp";
     char* filename4 = "texturas/textura4.bmp";
     char* filename5 = "texturas/textura5.bmp";
+    char* filename6= "texturas/Fondo2.bmp";
+    char* filename7= "texturas/Sol2.bmp";
 
     load_texture(filename0, 0);
     load_texture(filename1, 1);
@@ -17,12 +19,16 @@ void Scene::init() {
     load_texture(filename3, 3);
     load_texture(filename4, 4);
     load_texture(filename5, 5);
+    load_texture(filename6, 6);
+    load_texture(filename7, 7);
 }
 
 void Scene::load_texture(char *filename, int index) {
+
 	glClearColor (0.0, 0.0, 0.0, 0.0);
-	glShadeModel(GL_FLAT);
-	//glEnable(GL_DEPTH_TEST);
+    glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
+    glShadeModel(GL_FLAT);
+    glEnable(GL_DEPTH_TEST);
 
 	RgbImage theTexMap( filename );
 

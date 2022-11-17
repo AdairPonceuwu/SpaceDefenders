@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1668584805 source:d:\codeblocks\mingw\proyectos\spacedefenders\main.cpp
+1668665615 source:d:\codeblocks\mingw\proyectos\spacedefenders\main.cpp
 	<GL/glut.h>
 	<stdlib.h>
 	<math.h>
@@ -13,9 +13,6 @@
 	"Nave.h"
 	"Enemy.h"
 	"Disparos.h"
-	<iostream>
-	<iterator>
-	<vector>
 
 1426371328 d:\codeblocks\mingw\include\gl\glut.h
 	"freeglut_std.h"
@@ -35,7 +32,7 @@
 	<stdio.h>
 	<assert.h>
 
-1668227936 d:\codeblocks\mingw\proyectos\spacedefenders\utils.h
+1668661891 d:\codeblocks\mingw\proyectos\spacedefenders\utils.h
 	<GL/glut.h>
 	<cmath>
 	"rgbimage.h"
@@ -65,16 +62,16 @@
 	<string>
 	"object.h"
 
-1668228205 source:d:\codeblocks\mingw\proyectos\spacedefenders\scene.cpp
+1668663848 source:d:\codeblocks\mingw\proyectos\spacedefenders\scene.cpp
 	<cassert>
 	"scene.h"
 	"object.h"
 
-1668487581 source:d:\codeblocks\mingw\proyectos\spacedefenders\src\nave.cpp
+1668665301 source:d:\codeblocks\mingw\proyectos\spacedefenders\src\nave.cpp
 	"Nave.h"
 	<stdio.h>
 
-1668301611 d:\codeblocks\mingw\proyectos\spacedefenders\include\nave.h
+1668663184 d:\codeblocks\mingw\proyectos\spacedefenders\include\nave.h
 
 1668581025 source:d:\codeblocks\mingw\proyectos\spacedefenders\src\enemy.cpp
 	"Enemy.h"
@@ -86,6 +83,6 @@
 1668579824 source:d:\codeblocks\mingw\proyectos\spacedefenders\src\disparos.cpp
 	"Disparos.h"
 
-1668579626 d:\codeblocks\mingw\proyectos\spacedefenders\include\disparos.h
+1668633182 d:\codeblocks\mingw\proyectos\spacedefenders\include\disparos.h
 	<stdio.h>
 
