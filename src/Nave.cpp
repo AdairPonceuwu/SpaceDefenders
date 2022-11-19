@@ -32,15 +32,15 @@ void Nave::update(float delta, bool izq, bool der,bool adelante, bool atras){
         }
     }
     //Limites
-    if(V[0]<-5){
-        V[0]=-5;
+    if(V[0]<-4.5){
+        V[0]=-4.5;
     }
-    if(V[0]>5){
-        V[0]=5;
+    if(V[0]>4.5){
+        V[0]=4.5;
     }
 
-    if(V[2]<-20){
-        V[2]=-20;
+    if(V[2]<-18){
+        V[2]=-18;
     }
     if(V[2]>0){
         V[2]=0;

@@ -4,14 +4,17 @@
 #include "object.h"
 
 void Scene::init() {
-    char* filename0 = "texturas/textura0.bmp";
-    char* filename1 = "texturas/textura1.bmp";
-    char* filename2 = "texturas/textura2.bmp";
+    char* filename0 = "texturas/Estrella.bmp";
+    char* filename1 = "texturas/Sol.bmp";
+    char* filename2 = "texturas/Enemigo4.bmp";
     char* filename3 = "texturas/textura3.bmp";
     char* filename4 = "texturas/textura4.bmp";
     char* filename5 = "texturas/textura5.bmp";
-    char* filename6= "texturas/Fondo2.bmp";
-    char* filename7= "texturas/Sol2.bmp";
+    char* filename6 = "texturas/Fondo13.bmp";
+    char* filename7 = "texturas/Sol2.bmp";
+    char* filename8 = "texturas/Asteroide2.bmp";
+    char* filename9 = "texturas/Planeta1.bmp";
+    char* filename10 = "texturas/Satelite1.bmp";
 
     load_texture(filename0, 0);
     load_texture(filename1, 1);
@@ -21,6 +24,9 @@ void Scene::init() {
     load_texture(filename5, 5);
     load_texture(filename6, 6);
     load_texture(filename7, 7);
+    load_texture(filename8, 8);
+    load_texture(filename9, 9);
+    load_texture(filename10, 10);
 }
 
 void Scene::load_texture(char *filename, int index) {

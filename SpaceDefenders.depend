@@ -1,11 +1,12 @@
 # depslib dependency file v1.0
-1668665615 source:d:\codeblocks\mingw\proyectos\spacedefenders\main.cpp
+1668841575 source:d:\codeblocks\mingw\proyectos\spacedefenders\main.cpp
 	<GL/glut.h>
 	<stdlib.h>
 	<math.h>
 	<stdio.h>
 	<iostream>
 	<cstdlib>
+	<ctime>
 	"rgbimage.h"
 	"utils.h"
 	"player.h"
@@ -32,7 +33,7 @@
 	<stdio.h>
 	<assert.h>
 
-1668661891 d:\codeblocks\mingw\proyectos\spacedefenders\utils.h
+1668844582 d:\codeblocks\mingw\proyectos\spacedefenders\utils.h
 	<GL/glut.h>
 	<cmath>
 	"rgbimage.h"
@@ -62,12 +63,12 @@
 	<string>
 	"object.h"
 
-1668663848 source:d:\codeblocks\mingw\proyectos\spacedefenders\scene.cpp
+1668844305 source:d:\codeblocks\mingw\proyectos\spacedefenders\scene.cpp
 	<cassert>
 	"scene.h"
 	"object.h"
 
-1668665301 source:d:\codeblocks\mingw\proyectos\spacedefenders\src\nave.cpp
+1668704525 source:d:\codeblocks\mingw\proyectos\spacedefenders\src\nave.cpp
 	"Nave.h"
 	<stdio.h>
 
@@ -85,4 +86,37 @@
 
 1668633182 d:\codeblocks\mingw\proyectos\spacedefenders\include\disparos.h
 	<stdio.h>
+
+1668718641 source:d:\codeblocks\mingw\proyectos\spacedefenders\src\sistemasolar.cpp
+	"SistemaSolar.h"
+	"rgbimage.h"
+	"utils.h"
+	"player.h"
+	"scene.h"
+
+1668718685 d:\codeblocks\mingw\proyectos\spacedefenders\include\sistemasolar.h
+	<GL/glut.h>
+
+1668115473 d:\codeblocks\mingw\proyectos\spacedefenders\include\rgbimage.h
+	<stdio.h>
+	<assert.h>
+
+1668715878 d:\codeblocks\mingw\proyectos\spacedefenders\include\utils.h
+	<GL/glut.h>
+	<cmath>
+	"rgbimage.h"
+
+1668122383 d:\codeblocks\mingw\proyectos\spacedefenders\include\player.h
+	<GL/glut.h>
+	<stdio.h>
+
+1668228004 d:\codeblocks\mingw\proyectos\spacedefenders\include\scene.h
+	<vector>
+	"object.h"
+	"player.h"
+
+1668228498 d:\codeblocks\mingw\proyectos\spacedefenders\include\object.h
+	<GL/glut.h>
+	<string>
+	"utils.h"
 

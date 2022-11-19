@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <cstdlib>
+#include <ctime>
 using namespace std;
 #include "rgbimage.h"
 #include "utils.h"
@@ -12,8 +13,12 @@ using namespace std;
 #include "Nave.h"
 #include "Enemy.h"
 #include "Disparos.h"
-
-
+//Sistema Solar
+int year=0, day=0;
+int year_m=0,day_m=0;
+int sol=0;
+int planet1=0;
+int satelite=0;
 //Variables dimensiones de la pantalla
 const int WIDTH = 1140;
 const int HEIGTH = 648;
@@ -131,60 +136,6 @@ static void keyboardDown(BYTE key, int x, int y)
             glutPostRedisplay();
 }
 
-//Modificar posciones
-void update(){
-    Enemy enemigo = Enemy();
-    Disparos shoot = Disparos();
-    //Nave
-    alcon.update(10,izqDown,derDown,adelanteDown,atrasDown);
-    //Enemigos
-    for(int i=0;i<40;i++){
-        arrEnemies[i];
-        delta=delta+0.000005;
-        arrEnemies[i].updateEnemy(delta);
-    }
-    //Disparos
-    for(int i=0;i<200;i++){
-            arrDisparos[i];
-            deltaS=deltaS+.0008;
-            arrDisparos[i].update(deltaS);
-            if(arrDisparos[i].V[2]<-25||arrDisparos[i].V[2]>5){
-                    arrDisparos[i].disparo=false;
-            }
-
-    }
-
-    //Colisiones
-    for(int i=0; i<40; i++)
-    {
-        for (int j=0; j<100; j++)
-        {
-            shoot = arrDisparos[j];
-            if(arrDisparos[j].disparo)
-            {
-                double sumaRadios = arrEnemies[i].enemy_radio + arrDisparos[j].radio;
-                double distanciaZ = arrEnemies[i].V[2]-arrDisparos[j].V[2];
-                double distanciaX = arrEnemies[i].V[0]-arrDisparos[j].V[0];
-                if(arrEnemies[i].condicion&&(sumaRadios*sumaRadios)>((distanciaZ*distanciaZ)+(distanciaX*distanciaX)))
-                {
-                    arrEnemies[i].enemy_radio=0;
-                    arrEnemies[i].muerto();
-                    arrDisparos[j].disparo=false;
-               }
-            }
-            else
-            {
-                double sumaRadios = alcon.radio + arrEnemies[i].enemy_radio;
-                double distanciaX = alcon.V[0] - arrEnemies[i].V[0];
-                double distanciaZ = alcon.V[2] - arrEnemies[i].V[2];
-                if(arrEnemies[i].condicion&&(sumaRadios*sumaRadios)>((distanciaZ*distanciaZ)+(distanciaX*distanciaX)))
-                {
-                   alcon.muerto();
-                }
-            }
-        }
-    }
-}
 
 //Dibujar nave
 void dibujarNave(){
@@ -228,15 +179,17 @@ void dibujarDisparos(){
 }
 void dibujarFondo(){
     glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D,s.texture_map[6]);
+    glDisable(GL_LIGHTING);
     glTranslated(0,0,-25);
     glColor3f(1.0f,1.0f,1.0f);
+    glBindTexture(GL_TEXTURE_2D,s.texture_map[6]);
     glBegin(GL_QUADS);
-    glTexCoord2f(0.0f,0.0f); glVertex3f(-100.0f,-57.0f,10.0f);
-    glTexCoord2f(1.0f,0.0f); glVertex3f(100.0f,-57.0f,10.0f);
-    glTexCoord2f(1.0f,1.0f); glVertex3f(100.0f,57.0f,10.0f);
-    glTexCoord2f(0.0f,1.0f); glVertex3f(-100.0f,57.0f,10.0f);
+    glTexCoord2f(0.0f,0.0f); glVertex3f(-60.0f,-60.0f,4.0f);
+    glTexCoord2f(1.0f,0.0f); glVertex3f(60.0f,-60.0f,4.0f);
+    glTexCoord2f(1.0f,1.0f); glVertex3f(60.0f,60.0f,4.0f);
+    glTexCoord2f(0.0f,1.0f); glVertex3f(-60.0f,60.0f,4.0f);
     glEnd();
+    glEnable(GL_LIGHTING);
     glDisable(GL_TEXTURE_2D);
     glLoadIdentity();
 }
@@ -250,7 +203,112 @@ void setMaterial(GLfloat ambientR,GLfloat ambientG,GLfloat ambientB,
                  glMaterialfv(GL_FRONT_AND_BACK,GL_DIFFUSE,diffuse);
                  glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,specular);
 }
+//Dibujado tipo planetas y sol
+void drawSistemaSolar(){
+    glPushMatrix();
+    glTranslated(6,-5,-10);
+    glRotated(sol,0.0,1.0,0.0);
+    drawSphere(1,15,15,s.texture_map[7]);
+    glRotated(year,0.0,1.0,0.0);
+    glTranslated(2,0,0);
+    glPushMatrix();
+    glScaled(.5,.5,.5);
+    glRotated(day,0.0,1.0,0.0);
+    drawSphere(.8,12,12,s.texture_map[9]);
+    glPopMatrix();
+    glRotated(satelite,1.0,0.0,0.0);
+    glTranslated(0,1.5,0);
+    drawSphere(.3,12,12,s.texture_map[10]);
+    glPopMatrix();
+}
+//Dibujando estrellas
+void drawSistemaEstrellas(){
+    glPushMatrix();
+    glScaled(2,2,2);
+    glTranslated(-6,-5,-10);
+    glRotated(day,0.0,1.0,0.0);
+    drawStar(&anguloSol,s.texture_map[1]);
+    glPushMatrix();
+    glRotated(satelite,1.0,0.0,0.0);
+    glScaled(0.5,0.5,0.5);
+    glTranslated(0,1.5,0);
+    drawStar(&anguloSol,s.texture_map[0]);
+    glPopMatrix();
+    glPopMatrix();
+}
 
+//Modificar posciones
+void update(){
+    Enemy enemigo = Enemy();
+    Disparos shoot = Disparos();
+    //Nave
+    alcon.update(10,izqDown,derDown,adelanteDown,atrasDown);
+    //
+    //Enemigos
+    for(int i=0;i<40;i++){
+        arrEnemies[i];
+        delta=delta+0.000005;
+        arrEnemies[i].updateEnemy(delta);
+    }
+    //
+    //Disparos
+    for(int i=0;i<200;i++){
+            arrDisparos[i];
+            deltaS=deltaS+.0008;
+            arrDisparos[i].update(deltaS);
+            if(arrDisparos[i].V[2]<-25||arrDisparos[i].V[2]>5){
+                    arrDisparos[i].disparo=false;
+            }
+
+    }
+    //
+    //Colisiones
+    for(int i=0; i<40; i++)
+    {
+        for (int j=0; j<100; j++)
+        {
+            shoot = arrDisparos[j];
+            if(arrDisparos[j].disparo)
+            {
+                double sumaRadios = arrEnemies[i].enemy_radio + arrDisparos[j].radio;
+                double distanciaZ = arrEnemies[i].V[2]-arrDisparos[j].V[2];
+                double distanciaX = arrEnemies[i].V[0]-arrDisparos[j].V[0];
+                if(arrEnemies[i].condicion&&(sumaRadios*sumaRadios)>((distanciaZ*distanciaZ)+(distanciaX*distanciaX)))
+                {
+                    arrEnemies[i].enemy_radio=0;
+                    arrEnemies[i].muerto();
+                    arrDisparos[j].disparo=false;
+               }
+            }
+            else
+            {
+                double sumaRadios = alcon.radio + arrEnemies[i].enemy_radio;
+                double distanciaX = alcon.V[0] - arrEnemies[i].V[0];
+                double distanciaZ = alcon.V[2] - arrEnemies[i].V[2];
+                if(arrEnemies[i].condicion&&(sumaRadios*sumaRadios)>((distanciaZ*distanciaZ)+(distanciaX*distanciaX)))
+                {
+                   alcon.muerto();
+                }
+            }
+        }
+    }
+    //
+    //Sistema Solar
+    DWORD TiempoActual = 0;
+    DWORD LastUpdate = 0;
+    DWORD Lapso =0;
+    TiempoActual = GetTickCount();
+    Lapso = (TiempoActual - LastUpdate);
+
+    if(Lapso>=30){
+            year=((year+1)%360);
+            sol=(sol-2)%360;
+            day=(day+2)%360;
+            LastUpdate-TiempoActual;
+            satelite = (satelite-4)%360;
+
+    }
+}
 //--------------------------------------------------------------------------
 void luz(){
     glLightfv(GL_LIGHT0,GL_DIFFUSE,luz_difusa);
@@ -266,12 +324,14 @@ void display() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     update();
     drawAxis();
-    //drawRock(&anguloSol, s.texture_map);
     dibujarNave();
     dibujarEnemies();
     dibujarDisparos();
-    //dibujarFondo();
-    drawSphere(&anguloSol, s.texture_map[7],5,2,-5);
+    drawSistemaEstrellas();
+    drawRock(&anguloSol, s.texture_map,-10,-15,-15,.8,.8,.8);
+    drawSistemaSolar();
+    drawCone(&anguloSol,s.texture_map[2]);
+    dibujarFondo();
     glutSwapBuffers();
     glLoadIdentity();
 }
@@ -299,6 +359,7 @@ int main(int argc, char **argv) {
     glutInitWindowSize(WIDTH, HEIGTH);
     glutCreateWindow("SpaceDefender");
     init();
+    dibujarFondo();
     cargarEnemigos();
     glutIgnoreKeyRepeat(1);
     glutKeyboardFunc(keyboardDown);

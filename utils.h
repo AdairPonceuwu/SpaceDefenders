@@ -134,12 +134,13 @@ inline void drawCubes(GLuint *texture) {
     glPopMatrix();
 }
 
-inline void drawSphere(GLfloat *angulo, GLuint texture,float x, float y, float z) {
+inline void drawSphere2(GLfloat *angulo, GLuint texture,float x, float y, float z,float xS, float yS, float zS) {
 
     //activando texturas
     glEnable(GL_TEXTURE_2D);
     glPushMatrix();
     glTranslated(x,y,z);
+    glScaled(xS,yS,zS);
     glRotatef(90, 1.0f, 0.0f, 0.0f);
     glRotatef(*angulo, 0.0f, 0.0f, 1.0f);
     glColor3f(1.0,1.0,1.0);
@@ -151,9 +152,114 @@ inline void drawSphere(GLfloat *angulo, GLuint texture,float x, float y, float z
     glPopMatrix();
     glDisable(GL_TEXTURE_2D);
     *angulo = (*angulo + 0.1 > 360) ? 0.0 : *angulo + 0.1;
+
 }
 
-inline void drawRock(GLfloat *angulo, GLuint *texture) {
+inline void drawSphere(GLdouble radius,GLint slices, GLint stacks,GLuint texture) {
+
+    //activando texturas
+    glEnable(GL_TEXTURE_2D);
+    glPushMatrix();
+    glColor3f(1.0,1.0,1.0);
+    glBindTexture(GL_TEXTURE_2D, texture);
+    GLUquadric *qobj = gluNewQuadric();
+    gluQuadricTexture( qobj, GL_TRUE );
+    gluSphere( qobj, radius, slices, stacks );
+    gluDeleteQuadric( qobj );
+    glPopMatrix();
+    glDisable(GL_TEXTURE_2D);
+}
+inline void drawCone(GLfloat *angulo,GLuint texture){
+ unsigned int indices_enemigo[] = {
+		// front
+		0, 1, 2,
+		// Front
+		3, 4, 5,
+		// back
+		6, 7, 8,
+		// back
+		9, 10, 11,
+		// front
+		12, 13, 14,
+		// Front
+		15, 16, 17,
+		// back
+		18, 19, 20,
+		// back
+		21, 22, 23,
+	};
+GLfloat vertices_enemigo[] = {
+	//x		y		z
+	0.0f, 0.5f,  0.5f,
+	0.0f, 0.0f,  0.5f,
+	0.5f, 0.0f, 0.0f,
+	//x		y		z
+	0.0f, 0.5f,  0.5f,
+	0.0f, 0.0f,  0.5f,
+	-0.5f, 0.0f, 0.0f,
+	//x		y		z
+	0.0f, -0.5f,  -0.5f,
+	0.0f, 0.0f,  -0.5f,
+	0.5f, 0.0f,  0.0f,
+	//x		y		z
+	0.0f, -0.5f,  0.0f,
+	0.0f, 0.0f,  0.5f,
+	-0.5f, 0.0f,  0.0f,
+	//x		y		z
+	0.0f, 0.5f,  -0.5f,
+	0.0f, 0.0f,  -0.5f,
+	0.5f, 0.0f,  0.0f,
+	//x		y		z
+	0.0f, 0.5f,  0.0f,
+	0.0f, 0.0f,  0.5f,
+	-0.5f, 0.0f,  0.0f,
+	//x      y      z
+	0.0f, -0.5f,  0.5f,
+	0.0f, 0.0f,  0.5f,
+	0.5f, 0.0f, 0.0f,
+	//x		y		z
+	0.0f, -0.5f,  0.5f,
+	0.0f, 0.0f,  0.5f,
+	-0.5f, 0.0f, 0.0f,
+};
+    glEnable(GL_TEXTURE_2D);
+    glDisable(GL_LIGHTING);
+    glColor3f(1.0,1.0,1.0);
+    glPushMatrix();
+    glTranslated(0,0,-5);
+    glRotated(270, 0.0f,0.0f, 1.0f);
+    glBindTexture(GL_TEXTURE_2D, texture);
+    glBegin(GL_TRIANGLE_STRIP);
+    for (int i = 0; i < (sizeof(indices_enemigo) / sizeof(int)); i += 3) {
+            int v1 = indices_enemigo[i]*3,
+                v2 = indices_enemigo[i + 1] * 3,
+                v3 = indices_enemigo[i + 2] * 3;
+            glTexCoord2f(0.0,0.0);
+            glVertex3f(
+                vertices_enemigo[v1],
+                vertices_enemigo[v1 + 1],
+                vertices_enemigo[v1 + 2]
+            );
+            glTexCoord2f(0.0, 1.0);
+            glVertex3f(
+                vertices_enemigo[v2],
+                vertices_enemigo[v2 + 1],
+                vertices_enemigo[v2 + 2]
+            );
+            glTexCoord2f(1.0, 1.0);
+            glVertex3f(
+                vertices_enemigo[v3],
+                vertices_enemigo[v3 + 1],
+                vertices_enemigo[v3 + 2]
+            );
+        }
+    glEnd();
+    glEnable(GL_LIGHTING);
+    glDisable(GL_TEXTURE_2D);
+    glPopMatrix();
+    *angulo = (*angulo + 0.1 > 360) ? 0.0 : *angulo + 0.4;
+}
+inline void drawRock(GLfloat *angulo, GLuint *texture, float x, float y, float z,float xS, float yS, float zS) {
     float vertices[] = {
         0.610554, 0.390263, -0.577546,
         1.000000, -0.452002, -0.489054,
@@ -245,12 +351,15 @@ inline void drawRock(GLfloat *angulo, GLuint *texture) {
         14, 27, 21,
     };
 
-    glColor3f(1.0,1.0,1.0);
+
     glEnable(GL_TEXTURE_2D);
+    glDisable(GL_LIGHTING);
+    glColor3f(1.0,1.0,1.0);
     glPushMatrix();
-    glTranslated(0,0,-5);
+    glTranslated(x,y,z);
+    glScaled(xS,yS,zS);
     glRotatef(*angulo, 0.0f, 0.0f, 1.0f);
-    glBindTexture(GL_TEXTURE_2D, texture[5]);
+    glBindTexture(GL_TEXTURE_2D, texture[8]);
     glBegin(GL_TRIANGLES);
         for (int i = 0; i < (sizeof(caras) / sizeof(int)); i += 3) {
             int v1 = caras[i] * 3,
@@ -276,8 +385,111 @@ inline void drawRock(GLfloat *angulo, GLuint *texture) {
             );
         }
     glEnd();
+    glEnable(GL_LIGHTING);
     glDisable(GL_TEXTURE_2D);
+    glPopMatrix();
+    *angulo = (*angulo + 0.1 > 360) ? 0.0 : *angulo + 0.4;
+}
 
+inline void drawStar(GLfloat *angulo,GLuint texture){
+    unsigned int octaedro_indices[] = {
+		//top
+		// front
+		0, 1, 2,
+		// Fron
+		3, 4, 5,
+		// back
+		6, 7, 8,
+		// back
+		9, 10, 11,
+
+		// bottom
+		// front
+		12, 13, 14,
+		// Fron
+		15, 16, 17,
+		// back
+		18, 19, 20,
+		// back
+		21, 22, 23,
+
+	};
+GLfloat octaedro_vertices[] = {
+	// front
+	//x		y		z
+	0.0f, 0.5f,  0.0f,
+	0.0f, 0.0f,  0.5f,
+	0.5f,  0.0f,  0.0f,
+	// front
+	//x		y		z
+	0.0f, 0.5f,  0.0f,
+	0.0f, 0.0f,  0.5f,
+	-0.5f, 0.0f,  0.0f,
+	// back
+	//x		y		z
+	0.0f, 0.5f,  0.0f,
+	0.5f,  0.0f,  0.0f,
+	0.0f, 0.0f,  -0.5f,
+	// back
+	//x		y		z
+	0.0f, 0.5f,  0.0f,
+	-0.5f, 0.0f,  0.0f,
+	0.0f, 0.0f,  -0.5f,
+	// bottom
+	//front
+	//x		y		z
+	0.0f, -0.5f,  0.0f,
+	0.0f, 0.0f,  0.5f,
+	0.5f,  0.0f,  0.0f,
+	// front
+	//x		y		z
+	0.0f, -0.5f,  0.0f,
+	0.0f, 0.0f,  0.5f,
+	-0.5f, 0.0f,  0.0f,
+	// back
+	//x		y		z
+	0.0f, -0.5f,  0.0f,
+	0.5f,  0.0f,  0.0f,
+	0.0f, 0.0f,  -0.5f,
+	// back
+	//x		y		z
+	0.0f, -0.5f,  0.0f,
+	-0.5f, 0.0f,  0.0f,
+	0.0f, 0.0f,  -0.5f,
+};
+    glEnable(GL_TEXTURE_2D);
+    glDisable(GL_LIGHTING);
+    glColor3f(1.0,1.0,1.0);
+    glPushMatrix();
+    glRotatef(*angulo, 0.0f, 0.0f, 1.0f);
+    glBindTexture(GL_TEXTURE_2D, texture);
+    glBegin(GL_TRIANGLES);
+    for (int i = 0; i < (sizeof(octaedro_indices) / sizeof(int)); i += 3) {
+            int v1 = octaedro_indices[i] * 3,
+                v2 = octaedro_indices[i + 1] * 3,
+                v3 = octaedro_indices[i + 2] * 3;
+            glTexCoord2f(0.0,0.0);
+            glVertex3f(
+                octaedro_vertices[v1],
+                octaedro_vertices[v1 + 1],
+                octaedro_vertices[v1 + 2]
+            );
+            glTexCoord2f(0.0, 1.0);
+            glVertex3f(
+                octaedro_vertices[v2],
+                octaedro_vertices[v2 + 1],
+                octaedro_vertices[v2 + 2]
+            );
+            glTexCoord2f(1.0, 1.0);
+            glVertex3f(
+                octaedro_vertices[v3],
+                octaedro_vertices[v3 + 1],
+                octaedro_vertices[v3 + 2]
+            );
+        }
+    glEnd();
+    glEnable(GL_LIGHTING);
+    glDisable(GL_TEXTURE_2D);
     glPopMatrix();
     *angulo = (*angulo + 0.1 > 360) ? 0.0 : *angulo + 0.4;
 }
