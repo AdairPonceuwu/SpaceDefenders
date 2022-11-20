@@ -7,7 +7,7 @@
 #include "player.h"
 
 //se define la cantidad de texturas que se manejaran
-#define NTextures 6
+#define NTextures 20
 
 class Scene {
 public:

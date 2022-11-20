@@ -15,8 +15,9 @@ using namespace std;
 #include "Disparos.h"
 //Sistema Solar
 int year=0, day=0;
-int year_m=0,day_m=0;
-int sol=0;
+int year_1=0,day_1=0;
+int year_2=0,day_2=0;
+int solE=0;
 int planet1=0;
 int satelite=0;
 //Variables dimensiones de la pantalla
@@ -45,14 +46,19 @@ float luz_difusa[]={1,1,1,0};
 //Dibujar enemigos
 void cargarEnemigos(){
     int i=0;
-    while(i<40){
+    float x=0;
+    float z=0;
+    while(i<30){
     for (int r = 0; r < 10; r++)
     {
         for (int c = 0; c < 5; c++)
         {
-            arrEnemies[i]=(Enemy((-8/ 2) + r + .5f, 0, -20 + c,rand() % 360));
+            arrEnemies[i]=(Enemy((-8/ 2) + r +0.5f+x, 0, -20 + c+z,rand() % 360));
             i++;
+            z+=0.5;
         }
+        x+=0.6;
+        z=0;
     }
 }
 }
@@ -149,14 +155,13 @@ void dibujarNave(){
 //Dibujar enemigos
 void dibujarEnemies(){
     Enemy enemigo=Enemy();
-    for(int i = 0;i<40;i++){
+    for(int i = 0;i<30;i++){
         enemigo=arrEnemies[i];
         if(arrEnemies[i].condicion&&arrEnemies[i].V[2]!=0){
         glPushMatrix();
-        glScaled(1,1,1);
+        //glScaled(1,1,1);
         glTranslated(enemigo.V[0],enemigo.V[1],enemigo.V[2]);
-        //glRotated(enemigo.angulo,0,1,0);
-        //glRotated(270,1,0,0);
+        glRotated(enemigo.angulo,0,1,0);
         if(i%2==0){
             drawCone(s.texture_map[2]);
         }else{
@@ -210,14 +215,21 @@ void setMaterial(GLfloat ambientR,GLfloat ambientG,GLfloat ambientB,
                  glMaterialfv(GL_FRONT_AND_BACK,GL_DIFFUSE,diffuse);
                  glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,specular);
 }
-//Dibujado tipo planetas y sol
+//Dibujado del Sistema solar
 void drawSistemaSolar(){
     glPushMatrix();
     glTranslated(6,-5,-10);
-    glRotated(sol,0.0,1.0,0.0);
+    glRotated(solE,0.0,1.0,0.0);
     drawSphere(1,15,15,s.texture_map[7]);
+    glPushMatrix();
+    glRotatef(90, 1.0f, 0.0f, 0.0f);
+    glutSolidTorus(0.01f, 1.5f, 50, 50);
+    glutSolidTorus(0.01f, 2.5f,50, 50 );
+    glutSolidTorus(0.01f, 5.0f,50, 50 );
+    glPopMatrix();
+    glPushMatrix();
     glRotated(year,0.0,1.0,0.0);
-    glTranslated(2,0,0);
+    glTranslated(2.7,0,0);
     glPushMatrix();
     glScaled(.5,.5,.5);
     glRotated(day,0.0,1.0,0.0);
@@ -226,6 +238,67 @@ void drawSistemaSolar(){
     glRotated(satelite,1.0,0.0,0.0);
     glTranslated(0,1.5,0);
     drawSphere(.3,12,12,s.texture_map[10]);
+    glPopMatrix();
+
+    //DIBUJA MARTE
+     glPushMatrix();
+     glRotatef(year,0,1,0);
+     glTranslatef(-2.7,0.0,0.0);
+     glPushMatrix();
+     glRotatef(day,0,1,0);
+     drawSphere(0.3,10,10,s.texture_map[14]);
+     glPopMatrix();
+     glPopMatrix();
+
+    //DIBUJA MERCURIO
+     glPushMatrix();
+     glRotated(year_1,0.0,1.0,0.0);
+     glTranslatef(1.5,0.0,0.0);
+     glPushMatrix();
+     glRotatef(day_1,0,1,0);
+     drawSphere(0.15,10,10,s.texture_map[11]);
+     glPopMatrix();
+     glPopMatrix();
+
+    //DIBUJA VENUS
+     glPushMatrix();
+     glRotated(year_1,0.0,1.0,0.0);
+     glTranslatef(-1.5,0.0,0.0);
+     glPushMatrix();
+     glRotatef(day_1,0,1,0);
+     drawSphere(0.15,10,10,s.texture_map[13]);
+     glPopMatrix();
+     glPopMatrix();
+
+    //DIBUJA SATURNO
+     glPushMatrix();
+     glRotated(year_2,0.0,1.0,0.0);
+     glTranslatef(5.0,0.0,0.0);
+     glPushMatrix();
+     glRotatef(day_2, 0, 1, 0);
+     glRotatef(90, 1.0f, 1.0f, 0.0f);
+     drawSphere(0.6,15,15,s.texture_map[12]);
+     glColor3f(0.5f, 0.5f, 0.5f);//Violet
+     glutSolidTorus(0.1f, 0.9f,20, 20 );
+     glColor4f(1.0f, 1.0f, 1.0f, 0.0f);//white
+     glutSolidTorus(0.08f, 1.0f,20, 20 );
+     glColor3f(0.5f, 0.5f, 0.5f);//Violet
+     glutSolidTorus(0.08f, 1.02f,20, 20 );
+     glColor3f(0.5f, 0.5f, 0.5f);//Violet
+     glutSolidTorus(0.1f, 1.05f,50, 50 );
+     glPopMatrix();
+     glPopMatrix();
+
+    //DIBUJA JUPITER
+    glPushMatrix();
+    glRotatef(year_2, 0, 1, 0);
+    glTranslatef(-5.0,0.0,0.0);
+    glPushMatrix();
+    glRotatef(day_2, 0, 1, 0);
+    drawSphere(0.6,15,15,s.texture_map[5]);
+    glPopMatrix();
+    glPopMatrix();
+
     glPopMatrix();
 }
 //Dibujando estrellas
@@ -299,7 +372,6 @@ void update(){
             }
         }
     }
-    //
     //Sistema Solar
     DWORD TiempoActual = 0;
     DWORD LastUpdate = 0;
@@ -309,11 +381,14 @@ void update(){
 
     if(Lapso>=30){
             year=((year+1)%360);
-            sol=(sol-2)%360;
+            solE=(solE-2)%360;
             day=(day+2)%360;
-            LastUpdate-TiempoActual;
+            year_1=((year_1+4)%360);
+            year_2=((year_2+3)%360);
+            LastUpdate=TiempoActual;
             satelite = (satelite-4)%360;
-
+            day_2=(day_2-4)%360;
+            day_1=(day_1-3)%360;
     }
 }
 //--------------------------------------------------------------------------
