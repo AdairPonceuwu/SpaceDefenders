@@ -169,7 +169,7 @@ inline void drawSphere(GLdouble radius,GLint slices, GLint stacks,GLuint texture
     glPopMatrix();
     glDisable(GL_TEXTURE_2D);
 }
-inline void drawCone(GLfloat *angulo,GLuint texture){
+inline void drawCone(GLuint texture){
  unsigned int indices_enemigo[] = {
 		// front
 		0, 1, 2,
@@ -226,7 +226,6 @@ GLfloat vertices_enemigo[] = {
     glDisable(GL_LIGHTING);
     glColor3f(1.0,1.0,1.0);
     glPushMatrix();
-    glTranslated(0,0,-5);
     glRotated(270, 0.0f,0.0f, 1.0f);
     glBindTexture(GL_TEXTURE_2D, texture);
     glBegin(GL_TRIANGLE_STRIP);
@@ -254,10 +253,9 @@ GLfloat vertices_enemigo[] = {
             );
         }
     glEnd();
+    glPopMatrix();
     glEnable(GL_LIGHTING);
     glDisable(GL_TEXTURE_2D);
-    glPopMatrix();
-    *angulo = (*angulo + 0.1 > 360) ? 0.0 : *angulo + 0.4;
 }
 inline void drawRock(GLfloat *angulo, GLuint *texture, float x, float y, float z,float xS, float yS, float zS) {
     float vertices[] = {

@@ -5,10 +5,10 @@
 
 void Scene::init() {
     char* filename0 = "texturas/Estrella.bmp";
-    char* filename1 = "texturas/Sol.bmp";
+    char* filename1 = "texturas/Laser3.bmp";
     char* filename2 = "texturas/Enemigo4.bmp";
-    char* filename3 = "texturas/textura3.bmp";
-    char* filename4 = "texturas/textura4.bmp";
+    char* filename3 = "texturas/Laser4.bmp";
+    char* filename4 = "texturas/Enemigo5.bmp";
     char* filename5 = "texturas/textura5.bmp";
     char* filename6 = "texturas/Fondo13.bmp";
     char* filename7 = "texturas/Sol2.bmp";

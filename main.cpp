@@ -50,7 +50,7 @@ void cargarEnemigos(){
     {
         for (int c = 0; c < 5; c++)
         {
-            arrEnemies[i]=(Enemy((-10/ 2) + r + .5f, 0, -15 + c,rand() % 360));
+            arrEnemies[i]=(Enemy((-8/ 2) + r + .5f, 0, -20 + c,rand() % 360));
             i++;
         }
     }
@@ -153,17 +153,23 @@ void dibujarEnemies(){
         enemigo=arrEnemies[i];
         if(arrEnemies[i].condicion&&arrEnemies[i].V[2]!=0){
         glPushMatrix();
+        glScaled(1,1,1);
         glTranslated(enemigo.V[0],enemigo.V[1],enemigo.V[2]);
-        glRotated(enemigo.angulo,0,1,0);
-        glRotated(270,1,0,0);
-        glutSolidCone(enemigo.enemy_radio,0.3f,100,100);
-        glTranslated(0,0.2f,.1);
-        glutSolidCube(.2f);
+        //glRotated(enemigo.angulo,0,1,0);
+        //glRotated(270,1,0,0);
+        if(i%2==0){
+            drawCone(s.texture_map[2]);
+        }else{
+            drawCone(s.texture_map[4]);
+        }
+        //glutSolidCone(enemigo.enemy_radio,0.3f,100,100);
+        //glTranslated(0,0.2f,.1);
+        //glutSolidCube(.2f);
         glPopMatrix();
         }
     }
 }
-
+//Disparos
 void dibujarDisparos(){
     Disparos shoot = Disparos();
     for(int i = 0;i<100;i++){
@@ -171,12 +177,13 @@ void dibujarDisparos(){
         if(arrDisparos[i].disparo && alcon.condicion){
         glPushMatrix();
         glTranslated(shoot.V[0],shoot.V[1],shoot.V[2]);
-        glutSolidSphere(shoot.radio,100,100);
+        drawSphere(shoot.radio,100,100,s.texture_map[3]);
         glPopMatrix();
         }
     }
 
 }
+//Fondo
 void dibujarFondo(){
     glEnable(GL_TEXTURE_2D);
     glDisable(GL_LIGHTING);
@@ -330,7 +337,6 @@ void display() {
     drawSistemaEstrellas();
     drawRock(&anguloSol, s.texture_map,-10,-15,-15,.8,.8,.8);
     drawSistemaSolar();
-    drawCone(&anguloSol,s.texture_map[2]);
     dibujarFondo();
     glutSwapBuffers();
     glLoadIdentity();
