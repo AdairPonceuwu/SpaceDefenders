@@ -34,6 +34,7 @@ Nave alcon = Nave(0,0,.7f);
 GLfloat anguloSol = 0.0f;
 //Enemies respawn
 Enemy arrEnemies[30];
+Enemy arrEnemiesRocks[30];
 Disparos arrDisparos[200];
 float delta=0.0000005;
 float deltaS=0.005;
@@ -54,6 +55,7 @@ void cargarEnemigos(){
         for (int c = 0; c < 5; c++)
         {
             arrEnemies[i]=(Enemy((-8/ 2) + r +0.5f+x, 0, -20 + c+z,rand() % 360));
+            //arrEnemiesRocks[i]=(Enemy((-8/ 2) + r +0.5f+x, 0, -20 + c+z,rand() % 360));
             i++;
             z+=0.5;
         }
@@ -109,6 +111,13 @@ static void keyboardDown(BYTE key, int x, int y)
                 case 'S':
                     atrasDown=true;
                     break;
+                case 'r':
+                case 'R':
+                    if(alcon.condicion){
+                        cargarEnemigos();
+                        printf("Juego iniciado\n");
+                    }
+                    break;
             }
             glutPostRedisplay();
 }
@@ -145,7 +154,7 @@ static void keyboardDown(BYTE key, int x, int y)
 
 //Dibujar nave
 void dibujarNave(){
-    if(!alcon.condicion)exit(1);
+    if(!alcon.condicion){printf("GAME OVER\n");exit(1);}
     glPushMatrix();
     glTranslated(alcon.V[0],alcon.V[1],alcon.V[2]);
     glRotated(180,1,0,0);
@@ -167,9 +176,6 @@ void dibujarEnemies(){
         }else{
             drawCone(s.texture_map[4]);
         }
-        //glutSolidCone(enemigo.enemy_radio,0.3f,100,100);
-        //glTranslated(0,0.2f,.1);
-        //glutSolidCube(.2f);
         glPopMatrix();
         }
     }
@@ -477,7 +483,7 @@ void display() {
     dibujarNave();
     dibujarEnemies();
     dibujarDisparos();
-   // drawSistemaEstrellas();
+    // drawSistemaEstrellas();
     drawSistemaRocka();
     //drawRock(&anguloSol, s.texture_map,-10,-15,-15,.8,.8,.8);
     drawSistemaSolar();
@@ -505,17 +511,23 @@ void init() {
 int main(int argc, char **argv) {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-    glutInitWindowPosition(200,150);
+    glutInitWindowPosition(300,150);
     glutInitWindowSize(WIDTH, HEIGTH);
     glutCreateWindow("SpaceDefender");
     init();
     dibujarFondo();
-    cargarEnemigos();
+    //cargarEnemigos();
     glutIgnoreKeyRepeat(1);
     glutKeyboardFunc(keyboardDown);
     glutKeyboardUpFunc(keyboardUp);
     glutDisplayFunc(display);
     glutIdleFunc(display);
+    printf("Comenzar juego:R\n");
+    printf("Adelante:W\n");
+    printf("Atras:S\n");
+    printf("Derecha:D\n");
+    printf("Izquierda:A\n");
+    printf("Disparar:L\n");
     //glutSpecialFunc(keypress);
     //glutSpecialUpFunc(keyrelease);
     glutMainLoop();
