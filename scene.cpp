@@ -19,6 +19,9 @@ void Scene::init() {
     char* filename12 = "texturas/Planetas/saturno.bmp";
     char* filename13 = "texturas/Planetas/venus.bmp";
     char* filename14 = "texturas/Planetas/marte.bmp";
+    char* filename15 = "texturas/Asteroide.bmp";
+    char* filename16 = "texturas/Planetas/Asteroide3.bmp";
+
 
     load_texture(filename0, 0);
     load_texture(filename1, 1);
@@ -35,6 +38,8 @@ void Scene::init() {
     load_texture(filename12, 12);
     load_texture(filename13, 13);
     load_texture(filename14, 14);
+    load_texture(filename15, 15);
+    load_texture(filename16, 16);
 }
 
 void Scene::load_texture(char *filename, int index) {

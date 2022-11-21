@@ -33,7 +33,7 @@ Nave alcon = Nave(0,0,.7f);
 //float Radio=1.0;
 GLfloat anguloSol = 0.0f;
 //Enemies respawn
-Enemy arrEnemies[50];
+Enemy arrEnemies[30];
 Disparos arrDisparos[200];
 float delta=0.0000005;
 float deltaS=0.005;
@@ -177,7 +177,7 @@ void dibujarEnemies(){
 //Disparos
 void dibujarDisparos(){
     Disparos shoot = Disparos();
-    for(int i = 0;i<100;i++){
+    for(int i = 0;i<200;i++){
         shoot=arrDisparos[i];
         if(arrDisparos[i].disparo && alcon.condicion){
         glPushMatrix();
@@ -302,7 +302,7 @@ void drawSistemaSolar(){
     glPopMatrix();
 }
 //Dibujando estrellas
-void drawSistemaEstrellas(){
+/*void drawSistemaEstrellas(){
     glPushMatrix();
     glScaled(2,2,2);
     glTranslated(-6,-5,-10);
@@ -315,8 +315,76 @@ void drawSistemaEstrellas(){
     drawStar(&anguloSol,s.texture_map[0]);
     glPopMatrix();
     glPopMatrix();
-}
+}*/
+void drawSistemaRocka(){
 
+    glPushMatrix();
+    glScaled(.9,.9,.9);
+    glTranslated(-7,-5,-10);
+    glRotated(solE,0.0,1.0,0.0);
+    drawStar(&anguloSol,s.texture_map[1]);
+    glPushMatrix();
+    glRotated(satelite,1.0,0.0,0.0);
+    glScaled(0.5,0.5,0.5);
+    glTranslated(0,1.5,0);
+    drawStar(&anguloSol,s.texture_map[0]);
+    glPopMatrix();
+    //Dibuja Orbitas
+    glPushMatrix(); //Sistema de base de referencia
+    glRotatef(90, 1.0f, 0.0f, 0.0f);
+    glutSolidTorus(0.01f, 1.5f, 50, 50);
+    glutSolidTorus(0.01f, 2.5f,50, 50 );
+    glutSolidTorus(0.01f, 5.0f,50, 50 );
+    glPopMatrix();
+
+
+    //Rocka 1
+    glPushMatrix();
+    glScaled(.2,.2,.2);
+    glRotatef(year_1,0,1,0);
+    glTranslatef(-6.5,0.0,0.0);
+    glPushMatrix();
+    glRotatef(day_1,0,1,0);
+    drawRock(s.texture_map[9]);
+    glPopMatrix();
+    glPopMatrix();
+
+    //Rocka 2
+     glPushMatrix();
+     glScaled(.25,.25,.25);
+     glRotated(year_2,0.0,1.0,0.0);
+     glTranslatef(9.5,0.0,0.0);
+     glPushMatrix();
+     glRotatef(day_2,0,1,0);
+     drawRock(s.texture_map[16]);
+     glPopMatrix();
+     glPopMatrix();
+
+     //Rocka 3
+     glPushMatrix();
+     glScaled(.5,.5,.5);
+     glRotated(year,0.0,1.0,0.0);
+     glTranslatef(10,0.0,0.0);
+     glPushMatrix();
+     glRotatef(day,0,1,0);
+     drawRock(s.texture_map[15]);
+     glPopMatrix();
+     glPopMatrix();
+
+     //Rocka 3.1
+     glPushMatrix();
+     glScaled(.5,.5,.5);
+     glRotated(year,0.0,1.0,0.0);
+     glTranslatef(-10,0.0,0.0);
+     glPushMatrix();
+     glRotatef(day,0,1,0);
+     drawRock(s.texture_map[8]);
+     glPopMatrix();
+     glPopMatrix();
+
+    glPopMatrix();
+
+}
 //Modificar posciones
 void update(){
     Enemy enemigo = Enemy();
@@ -325,7 +393,7 @@ void update(){
     alcon.update(10,izqDown,derDown,adelanteDown,atrasDown);
     //
     //Enemigos
-    for(int i=0;i<40;i++){
+    for(int i=0;i<30;i++){
         arrEnemies[i];
         delta=delta+0.000005;
         arrEnemies[i].updateEnemy(delta);
@@ -343,7 +411,7 @@ void update(){
     }
     //
     //Colisiones
-    for(int i=0; i<40; i++)
+    for(int i=0; i<30; i++)
     {
         for (int j=0; j<100; j++)
         {
@@ -409,8 +477,9 @@ void display() {
     dibujarNave();
     dibujarEnemies();
     dibujarDisparos();
-    drawSistemaEstrellas();
-    drawRock(&anguloSol, s.texture_map,-10,-15,-15,.8,.8,.8);
+   // drawSistemaEstrellas();
+    drawSistemaRocka();
+    //drawRock(&anguloSol, s.texture_map,-10,-15,-15,.8,.8,.8);
     drawSistemaSolar();
     dibujarFondo();
     glutSwapBuffers();

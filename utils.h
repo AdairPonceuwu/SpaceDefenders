@@ -389,7 +389,7 @@ inline void drawRock(GLfloat *angulo, GLuint *texture, float x, float y, float z
     *angulo = (*angulo + 0.1 > 360) ? 0.0 : *angulo + 0.4;
 }
 
-inline void drawRock(GLfloat *angulo, GLuint texture) {
+inline void drawRock(GLuint texture) {
     float vertices[] = {
         0.610554, 0.390263, -0.577546,
         1.000000, -0.452002, -0.489054,
@@ -485,7 +485,6 @@ inline void drawRock(GLfloat *angulo, GLuint texture) {
     glDisable(GL_LIGHTING);
     glColor3f(1.0,1.0,1.0);
     glPushMatrix();
-    glRotatef(*angulo, 0.0f, 0.0f, 1.0f);
     glBindTexture(GL_TEXTURE_2D, texture);
     glBegin(GL_TRIANGLES);
         for (int i = 0; i < (sizeof(caras) / sizeof(int)); i += 3) {
@@ -515,7 +514,6 @@ inline void drawRock(GLfloat *angulo, GLuint texture) {
     glEnable(GL_LIGHTING);
     glDisable(GL_TEXTURE_2D);
     glPopMatrix();
-    *angulo = (*angulo + 0.1 > 360) ? 0.0 : *angulo + 0.4;
 }
 
 

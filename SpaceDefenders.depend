@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1668935699 source:d:\codeblocks\mingw\proyectos\spacedefenders\main.cpp
+1669007104 source:d:\codeblocks\mingw\proyectos\spacedefenders\main.cpp
 	<GL/glut.h>
 	<stdlib.h>
 	<math.h>
@@ -33,7 +33,7 @@
 	<stdio.h>
 	<assert.h>
 
-1668935699 d:\codeblocks\mingw\proyectos\spacedefenders\utils.h
+1668979682 d:\codeblocks\mingw\proyectos\spacedefenders\utils.h
 	<GL/glut.h>
 	<cmath>
 	"rgbimage.h"
@@ -63,7 +63,7 @@
 	<string>
 	"object.h"
 
-1668932384 source:d:\codeblocks\mingw\proyectos\spacedefenders\scene.cpp
+1669006311 source:d:\codeblocks\mingw\proyectos\spacedefenders\scene.cpp
 	<cassert>
 	"scene.h"
 	"object.h"
