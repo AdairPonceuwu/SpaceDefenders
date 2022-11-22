@@ -4,8 +4,7 @@
 #include "utils.h"
 
 Disparo::Disparo() {}
-Disparo::Disparo(float x, float y, float z, bool disparos) {
-    disparo = disparos;
+Disparo::Disparo(float x, float y, float z) {
     V[0] = x;
     V[1] = y;
     V[2] = z;

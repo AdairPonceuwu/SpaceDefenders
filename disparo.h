@@ -7,7 +7,7 @@
 class Disparo {
 public:
     Disparo();
-    Disparo(float x, float y, float z, bool disparo);
+    Disparo(float x, float y, float z);
     virtual ~Disparo();
     void update(float delta);
     void draw(GLuint texture);
@@ -15,7 +15,6 @@ public:
     float velocidad = 0.005f;
     float disparoRadio = 0.08f;
     float V[3];
-    bool disparo;
     float radio;
     bool fuera_de_rango = false;
 };

@@ -64,7 +64,7 @@ void Scene::dispara() {
               y = nave.V[1],
               z = nave.V[2] - 0.85;
 
-        disparos.push_back(Disparo(x, y, z, true));
+        disparos.push_back(Disparo(x, y, z));
         std::cout << "Disparando!" << std::endl;
     }
 }
