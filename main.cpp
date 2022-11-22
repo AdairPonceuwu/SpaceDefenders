@@ -32,18 +32,16 @@ const float FOV_Y = 60.6,
 
 Scene s = Scene();
 
-//float Radio=1.0;
 GLfloat anguloSol = 0.0f;
 //Enemies respawn
 Enemy arrEnemies[30];
 Enemy arrEnemiesRocks[30];
 Disparos arrDisparos[200];
-float delta=0.0000005;
-float deltaS=0.005;
-int shoots=0;
-//Iluminasion
-float luz_ambiente[]={0.5,0.7,0,0};
-float luz_difusa[]={1,1,1,0};
+float delta = 0.0000005;
+float deltaS = 0.005;
+int shoots = 0;
+
+float luz_difusa[] = {1, 1, 1, 0};
 
 
 //Dibujar enemigos
@@ -51,20 +49,18 @@ void cargarEnemigos(){
     int i=0;
     float x=0;
     float z=0;
-    while(i<30){
-    for (int r = 0; r < 10; r++)
-    {
-        for (int c = 0; c < 5; c++)
-        {
-            arrEnemies[i]=(Enemy((-8/ 2) + r +0.5f+x, 0, -20 + c+z,rand() % 360));
-            //arrEnemiesRocks[i]=(Enemy((-8/ 2) + r +0.5f+x, 0, -20 + c+z,rand() % 360));
-            i++;
-            z+=0.5;
+    while(i<30) {
+        for (int r = 0; r < 10; r++) {
+            for (int c = 0; c < 5; c++) {
+                arrEnemies[i]=(Enemy((-8/ 2) + r +0.5f+x, 0, -20 + c+z,rand() % 360));
+                //arrEnemiesRocks[i]=(Enemy((-8/ 2) + r +0.5f+x, 0, -20 + c+z,rand() % 360));
+                i++;
+                z+=0.5;
+            }
+            x+=0.6;
+            z=0;
         }
-        x+=0.6;
-        z=0;
     }
-}
 }
 
 static void keyboardDown(BYTE key, int x, int y) {

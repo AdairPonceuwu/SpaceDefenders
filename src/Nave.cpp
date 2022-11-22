@@ -1,5 +1,5 @@
 #include "Nave.h"
-#include <stdio.h>
+
 Nave::Nave(float x, float y, float z) {
     V[0] = x;
     V[1] = y;
@@ -11,7 +11,6 @@ Nave::Nave() {}
 Nave::~Nave() {}
 
 void Nave::update(float delta){
-
     if(teclas[0]) { // izq
         V[0] -= velocidad * delta;
     } else if (teclas[1]){ // der
@@ -25,18 +24,18 @@ void Nave::update(float delta){
     }
 
     //Limites
-    if(V[0]<-4.5){
-        V[0]=-4.5;
+    if(V[0] < -4.5){
+        V[0] = -4.5;
     }
-    if(V[0]>4.5){
-        V[0]=4.5;
+    if(V[0] > 4.5){
+        V[0] = 4.5;
     }
 
-    if(V[2]<-18){
-        V[2]=-18;
+    if(V[2] < -18){
+        V[2] = -18;
     }
-    if(V[2]>0){
-        V[2]=0;
+    if(V[2] > 0){
+        V[2] = 0;
     }
 }
 
