@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include <ctime>
 using namespace std;
+
 #include "rgbimage.h"
 #include "utils.h"
 #include "player.h"
@@ -13,6 +14,7 @@ using namespace std;
 #include "Nave.h"
 #include "Enemy.h"
 #include "Disparos.h"
+
 //Sistema Solar
 int year=0, day=0;
 int year_1=0,day_1=0;
@@ -211,16 +213,7 @@ void dibujarFondo(){
     glDisable(GL_TEXTURE_2D);
     glLoadIdentity();
 }
-void setMaterial(GLfloat ambientR,GLfloat ambientG,GLfloat ambientB,
-                 GLfloat diffuseR,GLfloat diffuseG, GLfloat diffuseB,
-                 GLfloat specularR, GLfloat specularG, GLfloat specularB){
-                 GLfloat ambient[]={ambientR,ambientG,ambientB};
-                 GLfloat diffuse[]={diffuseR,diffuseG,diffuseB};
-                 GLfloat specular[]={specularR,specularG,specularB};
-                 glMaterialfv(GL_FRONT_AND_BACK,GL_AMBIENT,ambient);
-                 glMaterialfv(GL_FRONT_AND_BACK,GL_DIFFUSE,diffuse);
-                 glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,specular);
-}
+
 //Dibujado del Sistema solar
 void drawSistemaSolar(){
     glPushMatrix();
