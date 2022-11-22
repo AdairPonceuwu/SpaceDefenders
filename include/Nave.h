@@ -10,7 +10,7 @@ public:
     float velocidad = .0055f;
     float radio = .25f;
     float V[3];
-    bool condicion = true;//true vivo, false muerto
+    bool vivo = true;//true vivo, false muerto
     // mapa de teclas
     // 0 - izq
     // 1 - der

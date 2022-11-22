@@ -87,7 +87,7 @@ static void keyboardDown(BYTE key, int x, int y) {
             break;
         case 'r':
         case 'R':
-            if(s.nave.condicion){
+            if(s.nave.vivo){
                 cargarEnemigos();
                 printf("Juego iniciado\n");
             }
@@ -125,7 +125,7 @@ void keyboardUp(BYTE key, int x, int y) {
 
 //Dibujar nave
 void dibujarNave(){
-    if(!s.nave.condicion){printf("GAME OVER\n");exit(1);}
+    if(!s.nave.vivo){printf("GAME OVER\n");exit(1);}
     glPushMatrix();
     glTranslated(s.nave.V[0], s.nave.V[1],s.nave.V[2]);
     glRotated(180,1,0,0);
@@ -156,7 +156,7 @@ void dibujarDisparos(){
     Disparos shoot = Disparos();
     for(int i = 0;i<200;i++){
         shoot=arrDisparos[i];
-        if(arrDisparos[i].disparo && s.nave.condicion){
+        if(arrDisparos[i].disparo && s.nave.vivo){
             glPushMatrix();
             glTranslated(shoot.V[0],shoot.V[1],shoot.V[2]);
             drawSphere(shoot.radio,100,100,s.texture_map[3]);

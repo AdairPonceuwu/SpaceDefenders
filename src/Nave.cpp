@@ -41,6 +41,6 @@ void Nave::update(float delta){
 }
 
 void Nave::muerto() {
-    condicion = false;
+    vivo = false;
 }
 
