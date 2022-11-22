@@ -110,7 +110,7 @@ void Scene::update() {
 }
 
 void Scene::draw() {
-    //dibujarNave(nave);
+    nave.draw();
     for (int i = 0; i < disparos.size(); ++i) {
         disparos[i].draw(texture_map[3]);
     }

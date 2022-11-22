@@ -1,3 +1,7 @@
+#include <stdio.h>
+#include <cstdlib>
+#include <GL/glut.h>
+
 #include "nave.h"
 
 Nave::Nave(float x, float y, float z) {
@@ -37,6 +41,18 @@ void Nave::update(float delta){
     if(V[2] > 0){
         V[2] = 0;
     }
+}
+
+void Nave::draw() {
+    if (!vivo){
+        printf("GAME OVER\n");
+        exit(1);
+    }
+    glPushMatrix();
+    glTranslated(V[0], V[1], V[2]);
+    glRotated(180, 1, 0, 0);
+    glutSolidCone(radio, 0.8, 100, 100);
+    glPopMatrix();
 }
 
 void Nave::muerto() {

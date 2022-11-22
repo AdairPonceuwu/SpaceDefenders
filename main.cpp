@@ -1,5 +1,4 @@
 #include <GL/glut.h>
-#include <stdlib.h>
 #include <math.h>
 #include <stdio.h>
 #include <iostream>
@@ -113,18 +112,6 @@ void keyboardUp(BYTE key, int x, int y) {
             s.dispara();
     }
     glutPostRedisplay();
-}
-
-void dibujarNave(){
-    if(!s.nave.vivo){
-        printf("GAME OVER\n");
-        exit(1);
-    }
-    glPushMatrix();
-    glTranslated(s.nave.V[0], s.nave.V[1], s.nave.V[2]);
-    glRotated(180, 1, 0, 0);
-    glutSolidCone(s.nave.radio, 0.8, 100, 100);
-    glPopMatrix();
 }
 
 //Dibujar enemigos
@@ -420,7 +407,6 @@ void display() {
     drawAxis();
     s.update();
     s.draw();
-    dibujarNave();
     dibujarEnemies();
     // drawSistemaEstrellas();
     drawSistemaRocka();

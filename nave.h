@@ -7,6 +7,7 @@ public:
     Nave();
     virtual ~Nave();
     void update(float delta);
+    void draw();
     void muerto();
 
     float V[3];
