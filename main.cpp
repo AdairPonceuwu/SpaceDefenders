@@ -35,10 +35,7 @@ GLfloat anguloSol = 0.0f;
 //Enemies respawn
 Enemy arrEnemies[30];
 Enemy arrEnemiesRocks[30];
-Disparo arrDisparos[200];
 float delta = 0.0000005;
-float deltaS = 0.005;
-int shoots = 0;
 
 float luz_difusa[] = {1, 1, 1, 0};
 
@@ -111,25 +108,25 @@ void keyboardUp(BYTE key, int x, int y) {
             break;
         case 'L':
         case 'l':
-            arrDisparos[shoots] = (Disparo(s.nave.V[0],s.nave.V[1],s.nave.V[2]-.85f,true));
-            shoots++;
+            //arrDisparos[shoots] = (Disparo(s.nave.V[0],s.nave.V[1],s.nave.V[2]-.85f,true));
+            //shoots++;
+            s.dispara();
     }
     glutPostRedisplay();
 }
 
-
-//Dibujar nave
 void dibujarNave(){
     if(!s.nave.vivo){
         printf("GAME OVER\n");
         exit(1);
     }
     glPushMatrix();
-    glTranslated(s.nave.V[0], s.nave.V[1],s.nave.V[2]);
+    glTranslated(s.nave.V[0], s.nave.V[1], s.nave.V[2]);
     glRotated(180, 1, 0, 0);
     glutSolidCone(s.nave.radio, 0.8, 100, 100);
     glPopMatrix();
 }
+
 //Dibujar enemigos
 void dibujarEnemies(){
     Enemy enemigo = Enemy();
@@ -149,20 +146,7 @@ void dibujarEnemies(){
         }
     }
 }
-//Disparos
-void dibujarDisparos(){
-    Disparo shoot = Disparo();
-    for(int i = 0; i < 200; i++) {
-        shoot = arrDisparos[i];
-        if(arrDisparos[i].disparo && s.nave.vivo) {
-            glPushMatrix();
-            glTranslated(shoot.V[0], shoot.V[1], shoot.V[2]);
-            drawSphere(shoot.radio, 100, 100, s.texture_map[3]);
-            glPopMatrix();
-        }
-    }
 
-}
 //Fondo
 void dibujarFondo(){
     glEnable(GL_TEXTURE_2D);
@@ -353,18 +337,14 @@ void drawSistemaRocka(){
 }
 //Modificar posciones
 void update(){
-    Enemy enemigo = Enemy();
-    Disparo shoot = Disparo();
-    //Nave
-    s.nave.update(10);
     //Enemigos
     for(int i=0; i < 30; i++){
-        arrEnemies[i];
         delta = delta + 0.000005;
         arrEnemies[i].updateEnemy(delta);
     }
     //
     //Disparos
+    /*
     for(int i = 0; i < 200; i++){
         arrDisparos[i];
         deltaS = deltaS+.0008;
@@ -403,6 +383,7 @@ void update(){
             }
         }
     }
+    */
     //Sistema Solar
     DWORD TiempoActual = 0;
     DWORD LastUpdate = 0;
@@ -437,12 +418,12 @@ void display() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     update();
     drawAxis();
+    s.update();
+    s.draw();
     dibujarNave();
     dibujarEnemies();
-    dibujarDisparos();
     // drawSistemaEstrellas();
     drawSistemaRocka();
-    //drawRock(&anguloSol, s.texture_map,-10,-15,-15,.8,.8,.8);
     drawSistemaSolar();
     dibujarFondo();
     glutSwapBuffers();

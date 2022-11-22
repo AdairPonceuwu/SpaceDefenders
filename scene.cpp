@@ -1,7 +1,12 @@
 #include <cassert>
+#include <iostream>
 
 #include "scene.h"
 #include "object.h"
+
+Scene::Scene() {
+    disparos.reserve(NDisparos);
+}
 
 void Scene::init() {
     const int T = 17;
@@ -31,7 +36,6 @@ void Scene::init() {
 }
 
 void Scene::load_texture(char *filename, int index) {
-
 	glClearColor (0.0, 0.0, 0.0, 0.0);
     glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
     glShadeModel(GL_FLAT);
@@ -54,6 +58,17 @@ void Scene::load_texture(char *filename, int index) {
     theTexMap.Reset();
 }
 
+void Scene::dispara() {
+    if (disparos.size() < NDisparos) {
+        float x = nave.V[0],
+              y = nave.V[1],
+              z = nave.V[2] - 0.85;
+
+        disparos.push_back(Disparo(x, y, z, true));
+        std::cout << "Disparando!" << std::endl;
+    }
+}
+
 void Scene::add_object(Object o) {
     assert(false && "add_object not implemented!");
 }
@@ -72,4 +87,31 @@ void Scene::draw_player() {
 
 void Scene::reset() {
     assert(false && "reset not implemented!");
+}
+
+void Scene::update() {
+    nave.update(10);
+
+    // avanza disparos
+    bool d_elim[NDisparos] = { false };
+    for (int i = 0; i < disparos.size(); ++i) {
+        disparos[i].update(10);
+        if (disparos[i].fuera_de_rango) {
+            d_elim[i] = true;
+        }
+    }
+
+    // elimina aquellos que se salieron de rango
+    for (int i = 0; i < disparos.size(); ++i) {
+        if (d_elim[i]) {
+            disparos.erase(disparos.begin() + i);
+        }
+    }
+}
+
+void Scene::draw() {
+    //dibujarNave(nave);
+    for (int i = 0; i < disparos.size(); ++i) {
+        disparos[i].draw(texture_map[3]);
+    }
 }

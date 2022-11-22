@@ -1,12 +1,13 @@
 Lista:
-- Arreglar arreglo de disparos
 - Quitar código sin uso
 - Implementar oleadas de meteoritos
 - Implementar sistemas de vidas
 - Implementar importación de figuras
 - Modelar nave
 - Incluir figura en clase Nave
+- Arreglar velocidad de nave
 - Modelar rocas
+- Regresar 0 cuando muere
 - Variar rocas
 
 Extra:
