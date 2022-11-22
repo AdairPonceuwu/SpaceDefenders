@@ -1,4 +1,4 @@
-#include "Nave.h"
+#include "nave.h"
 
 Nave::Nave(float x, float y, float z) {
     V[0] = x;

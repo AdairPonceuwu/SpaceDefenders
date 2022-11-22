@@ -10,9 +10,9 @@ using namespace std;
 #include "rgbimage.h"
 #include "utils.h"
 #include "scene.h"
-#include "Nave.h"
-#include "Enemy.h"
-#include "Disparos.h"
+#include "nave.h"
+#include "enemy.h"
+#include "disparos.h"
 
 //Sistema Solar
 int year=0, day=0;

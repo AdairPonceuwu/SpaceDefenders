@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "object.h"
-#include "Nave.h"
+#include "nave.h"
 
 //se define la cantidad de texturas que se manejaran
 #define NTextures 20

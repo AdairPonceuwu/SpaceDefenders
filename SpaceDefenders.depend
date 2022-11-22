@@ -126,7 +126,7 @@
 1669092619 c:\users\boris\desktop\spacedefenders\include\disparos.h
 	<stdio.h>
 
-1669100047 source:c:\users\boris\desktop\spacedefenders\main.cpp
+1669100484 source:c:\users\boris\desktop\spacedefenders\main.cpp
 	<GL/glut.h>
 	<stdlib.h>
 	<math.h>
@@ -137,9 +137,9 @@
 	"rgbimage.h"
 	"utils.h"
 	"scene.h"
-	"Nave.h"
-	"Enemy.h"
-	"Disparos.h"
+	"nave.h"
+	"enemy.h"
+	"disparos.h"
 
 1660045911 c:\program files\codeblocks\mingw\include\gl\glut.h
 	"freeglut_std.h"
@@ -168,10 +168,10 @@
 	<GL/glut.h>
 	<stdio.h>
 
-1669096159 c:\users\boris\desktop\spacedefenders\scene.h
+1669100491 c:\users\boris\desktop\spacedefenders\scene.h
 	<vector>
 	"object.h"
-	"Nave.h"
+	"nave.h"
 
 1669092619 c:\users\boris\desktop\spacedefenders\object.h
 	<GL/glut.h>
