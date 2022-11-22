@@ -1,4 +1,7 @@
+#include <GL/glut.h>
+
 #include "disparo.h"
+#include "utils.h"
 
 Disparo::Disparo() {}
 Disparo::Disparo(float x, float y, float z, bool disparos) {
@@ -17,4 +20,11 @@ void Disparo::update(float delta) {
     } else {
         V[2] += velocidad * delta;
     }
+}
+
+void Disparo::draw(GLuint texture) {
+    glPushMatrix();
+    glTranslated(V[0], V[1], V[2]);
+    drawSphere(radio, 100, 100, texture);
+    glPopMatrix();
 }
