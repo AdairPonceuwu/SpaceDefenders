@@ -4,42 +4,30 @@
 #include "object.h"
 
 void Scene::init() {
-    char* filename0 = "texturas/Estrella.bmp";
-    char* filename1 = "texturas/Laser3.bmp";
-    char* filename2 = "texturas/Enemigo4.bmp";
-    char* filename3 = "texturas/Laser4.bmp";
-    char* filename4 = "texturas/Enemigos3.bmp";
-    char* filename5 = "texturas/Planetas/jupiter.bmp";
-    char* filename6 = "texturas/Fondo13.bmp";
-    char* filename7 = "texturas/Sol2.bmp";
-    char* filename8 = "texturas/Asteroide2.bmp";
-    char* filename9 = "texturas/Planeta1.bmp";
-    char* filename10 = "texturas/Satelite1.bmp";
-    char* filename11 = "texturas/Planetas/mercurio.bmp";
-    char* filename12 = "texturas/Planetas/saturno.bmp";
-    char* filename13 = "texturas/Planetas/venus.bmp";
-    char* filename14 = "texturas/Planetas/marte.bmp";
-    char* filename15 = "texturas/Asteroide.bmp";
-    char* filename16 = "texturas/Planetas/Asteroide3.bmp";
+    const int T = 17;
+    char *archivos[T] = {
+        "texturas/Estrella.bmp",
+        "texturas/Laser3.bmp",
+        "texturas/Enemigo4.bmp",
+        "texturas/Laser4.bmp",
+        "texturas/Enemigos3.bmp",
+        "texturas/Planetas/jupiter.bmp",
+        "texturas/Fondo13.bmp",
+        "texturas/Sol2.bmp",
+        "texturas/Asteroide2.bmp",
+        "texturas/Planeta1.bmp",
+        "texturas/Satelite1.bmp",
+        "texturas/Planetas/mercurio.bmp",
+        "texturas/Planetas/saturno.bmp",
+        "texturas/Planetas/venus.bmp",
+        "texturas/Planetas/marte.bmp",
+        "texturas/Asteroide.bmp",
+        "texturas/Planetas/Asteroide3.bmp",
+    };
 
-
-    load_texture(filename0, 0);
-    load_texture(filename1, 1);
-    load_texture(filename2, 2);
-    load_texture(filename3, 3);
-    load_texture(filename4, 4);
-    load_texture(filename5, 5);
-    load_texture(filename6, 6);
-    load_texture(filename7, 7);
-    load_texture(filename8, 8);
-    load_texture(filename9, 9);
-    load_texture(filename10, 10);
-    load_texture(filename11, 11);
-    load_texture(filename12, 12);
-    load_texture(filename13, 13);
-    load_texture(filename14, 14);
-    load_texture(filename15, 15);
-    load_texture(filename16, 16);
+    for (int i = 0; i < T; ++i) {
+        load_texture(archivos[i], i);
+    }
 }
 
 void Scene::load_texture(char *filename, int index) {
