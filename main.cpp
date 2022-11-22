@@ -9,7 +9,6 @@ using namespace std;
 
 #include "rgbimage.h"
 #include "utils.h"
-#include "player.h"
 #include "scene.h"
 #include "Nave.h"
 #include "Enemy.h"
