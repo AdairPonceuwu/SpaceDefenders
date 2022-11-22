@@ -7,13 +7,14 @@ class Disparos
     public:
         Disparos();
         Disparos(float x, float y, float z, bool disparo);
+        virtual ~Disparos();
+        void update(float delta);
+
         float velocidad = .005f;
         float disparoRadio= .08f;
         float V[3];
         bool disparo;
         float radio;
-        virtual ~Disparos();
-        void update(float delta);
     protected:
 
     private:

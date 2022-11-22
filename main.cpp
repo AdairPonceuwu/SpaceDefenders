@@ -120,41 +120,44 @@ void keyboardUp(BYTE key, int x, int y) {
 
 //Dibujar nave
 void dibujarNave(){
-    if(!s.nave.vivo){printf("GAME OVER\n");exit(1);}
+    if(!s.nave.vivo){
+        printf("GAME OVER\n");
+        exit(1);
+    }
     glPushMatrix();
     glTranslated(s.nave.V[0], s.nave.V[1],s.nave.V[2]);
-    glRotated(180,1,0,0);
-    glutSolidCone(s.nave.radio,.8,100,100);
+    glRotated(180, 1, 0, 0);
+    glutSolidCone(s.nave.radio, 0.8, 100, 100);
     glPopMatrix();
 }
 //Dibujar enemigos
 void dibujarEnemies(){
-    Enemy enemigo=Enemy();
-    for(int i = 0;i<30;i++){
-        enemigo=arrEnemies[i];
-        if(arrEnemies[i].condicion&&arrEnemies[i].V[2]!=0){
-        glPushMatrix();
-        //glScaled(1,1,1);
-        glTranslated(enemigo.V[0],enemigo.V[1],enemigo.V[2]);
-        glRotated(enemigo.angulo,0,1,0);
-        if(i%2==0){
-            drawCone(s.texture_map[2]);
-        }else{
-            drawCone(s.texture_map[4]);
-        }
-        glPopMatrix();
+    Enemy enemigo = Enemy();
+    for(int i = 0; i < 30; i++){
+        enemigo = arrEnemies[i];
+        if(arrEnemies[i].condicion && arrEnemies[i].V[2] != 0){
+            glPushMatrix();
+            //glScaled(1,1,1);
+            glTranslated(enemigo.V[0], enemigo.V[1], enemigo.V[2]);
+            glRotated(enemigo.angulo, 0, 1, 0);
+            if (i % 2 == 0) {
+                drawCone(s.texture_map[2]);
+            } else {
+                drawCone(s.texture_map[4]);
+            }
+            glPopMatrix();
         }
     }
 }
 //Disparos
 void dibujarDisparos(){
     Disparos shoot = Disparos();
-    for(int i = 0;i<200;i++){
-        shoot=arrDisparos[i];
-        if(arrDisparos[i].disparo && s.nave.vivo){
+    for(int i = 0; i < 200; i++) {
+        shoot = arrDisparos[i];
+        if(arrDisparos[i].disparo && s.nave.vivo) {
             glPushMatrix();
-            glTranslated(shoot.V[0],shoot.V[1],shoot.V[2]);
-            drawSphere(shoot.radio,100,100,s.texture_map[3]);
+            glTranslated(shoot.V[0], shoot.V[1], shoot.V[2]);
+            drawSphere(shoot.radio, 100, 100, s.texture_map[3]);
             glPopMatrix();
         }
     }
@@ -164,14 +167,14 @@ void dibujarDisparos(){
 void dibujarFondo(){
     glEnable(GL_TEXTURE_2D);
     glDisable(GL_LIGHTING);
-    glTranslated(0,0,-25);
-    glColor3f(1.0f,1.0f,1.0f);
-    glBindTexture(GL_TEXTURE_2D,s.texture_map[6]);
+    glTranslated(0, 0, -25);
+    glColor3f(1.0f, 1.0f, 1.0f);
+    glBindTexture(GL_TEXTURE_2D, s.texture_map[6]);
     glBegin(GL_QUADS);
-    glTexCoord2f(0.0f,0.0f); glVertex3f(-60.0f,-60.0f,4.0f);
-    glTexCoord2f(1.0f,0.0f); glVertex3f(60.0f,-60.0f,4.0f);
-    glTexCoord2f(1.0f,1.0f); glVertex3f(60.0f,60.0f,4.0f);
-    glTexCoord2f(0.0f,1.0f); glVertex3f(-60.0f,60.0f,4.0f);
+    glTexCoord2f(0.0f, 0.0f); glVertex3f(-60.0f, -60.0f, 4.0f);
+    glTexCoord2f(1.0f, 0.0f); glVertex3f(60.0f, -60.0f, 4.0f);
+    glTexCoord2f(1.0f, 1.0f); glVertex3f(60.0f, 60.0f, 4.0f);
+    glTexCoord2f(0.0f, 1.0f); glVertex3f(-60.0f, 60.0f, 4.0f);
     glEnd();
     glEnable(GL_LIGHTING);
     glDisable(GL_TEXTURE_2D);
@@ -282,15 +285,15 @@ void drawSistemaSolar(){
 void drawSistemaRocka(){
 
     glPushMatrix();
-    glScaled(.9,.9,.9);
-    glTranslated(-7,-5,-10);
-    glRotated(solE,0.0,1.0,0.0);
-    drawStar(&anguloSol,s.texture_map[1]);
+    glScaled(0.9, 0.9, 0.9);
+    glTranslated(-7, -5, -10);
+    glRotated(solE, 0.0, 1.0, 0.0);
+    drawStar(&anguloSol, s.texture_map[1]);
     glPushMatrix();
-    glRotated(satelite,1.0,0.0,0.0);
-    glScaled(0.5,0.5,0.5);
-    glTranslated(0,1.5,0);
-    drawStar(&anguloSol,s.texture_map[0]);
+    glRotated(satelite, 1.0, 0.0, 0.0);
+    glScaled(0.5, 0.5, 0.5);
+    glTranslated(0, 1.5 ,0);
+    drawStar(&anguloSol, s.texture_map[0]);
     glPopMatrix();
     //Dibuja Orbitas
     glPushMatrix(); //Sistema de base de referencia
@@ -303,44 +306,44 @@ void drawSistemaRocka(){
 
     //Rocka 1
     glPushMatrix();
-    glScaled(.2,.2,.2);
-    glRotatef(year_1,0,1,0);
-    glTranslatef(-6.5,0.0,0.0);
+    glScaled(0.2, 0.2, 0.2);
+    glRotatef(year_1, 0, 1, 0);
+    glTranslatef(-6.5, 0.0, 0.0);
     glPushMatrix();
-    glRotatef(day_1,0,1,0);
+    glRotatef(day_1, 0, 1, 0);
     drawRock(s.texture_map[9]);
     glPopMatrix();
     glPopMatrix();
 
     //Rocka 2
      glPushMatrix();
-     glScaled(.25,.25,.25);
-     glRotated(year_2,0.0,1.0,0.0);
-     glTranslatef(9.5,0.0,0.0);
+     glScaled(0.25, 0.25, 0.25);
+     glRotated(year_2, 0.0, 1.0, 0.0);
+     glTranslatef(9.5, 0.0, 0.0);
      glPushMatrix();
-     glRotatef(day_2,0,1,0);
+     glRotatef(day_2, 0, 1, 0);
      drawRock(s.texture_map[16]);
      glPopMatrix();
      glPopMatrix();
 
      //Rocka 3
      glPushMatrix();
-     glScaled(.5,.5,.5);
-     glRotated(year,0.0,1.0,0.0);
-     glTranslatef(10,0.0,0.0);
+     glScaled(0.5, 0.5, 0.5);
+     glRotated(year, 0.0, 1.0, 0.0);
+     glTranslatef(10, 0.0, 0.0);
      glPushMatrix();
-     glRotatef(day,0,1,0);
+     glRotatef(day, 0, 1, 0);
      drawRock(s.texture_map[15]);
      glPopMatrix();
      glPopMatrix();
 
      //Rocka 3.1
      glPushMatrix();
-     glScaled(.5,.5,.5);
-     glRotated(year,0.0,1.0,0.0);
-     glTranslatef(-10,0.0,0.0);
+     glScaled(0.5, 0.5, 0.5);
+     glRotated(year, 0.0, 1.0, 0.0);
+     glTranslatef(-10, 0.0, 0.0);
      glPushMatrix();
-     glRotatef(day,0,1,0);
+     glRotatef(day, 0, 1, 0);
      drawRock(s.texture_map[8]);
      glPopMatrix();
      glPopMatrix();
@@ -355,48 +358,46 @@ void update(){
     //Nave
     s.nave.update(10);
     //Enemigos
-    for(int i=0;i<30;i++){
+    for(int i=0; i < 30; i++){
         arrEnemies[i];
-        delta=delta+0.000005;
+        delta = delta + 0.000005;
         arrEnemies[i].updateEnemy(delta);
     }
     //
     //Disparos
-    for(int i=0;i<200;i++){
-            arrDisparos[i];
-            deltaS=deltaS+.0008;
-            arrDisparos[i].update(deltaS);
-            if(arrDisparos[i].V[2]<-25||arrDisparos[i].V[2]>5){
-                    arrDisparos[i].disparo=false;
-            }
-
+    for(int i = 0; i < 200; i++){
+        arrDisparos[i];
+        deltaS = deltaS+.0008;
+        arrDisparos[i].update(deltaS);
+        if (arrDisparos[i].V[2] < -25 || arrDisparos[i].V[2] > 5){
+            arrDisparos[i].disparo = false;
+        }
     }
     //
     //Colisiones
-    for(int i=0; i<30; i++)
-    {
-        for (int j=0; j<100; j++)
-        {
+    for(int i = 0; i < 30; i++) {
+        for (int j = 0; j < 100; j++) {
             shoot = arrDisparos[j];
-            if(arrDisparos[j].disparo)
-            {
+            if(arrDisparos[j].disparo) {
                 double sumaRadios = arrEnemies[i].enemy_radio + arrDisparos[j].radio;
                 double distanciaZ = arrEnemies[i].V[2]-arrDisparos[j].V[2];
                 double distanciaX = arrEnemies[i].V[0]-arrDisparos[j].V[0];
-                if(arrEnemies[i].condicion&&(sumaRadios*sumaRadios)>((distanciaZ*distanciaZ)+(distanciaX*distanciaX)))
-                {
-                    arrEnemies[i].enemy_radio=0;
+                if (arrEnemies[i].condicion && (sumaRadios * sumaRadios) > (
+                                               (distanciaZ * distanciaZ) +
+                                               (distanciaX * distanciaX))
+                    ) {
+                    arrEnemies[i].enemy_radio = 0;
                     arrEnemies[i].muerto();
-                    arrDisparos[j].disparo=false;
+                    arrDisparos[j].disparo = false;
                }
-            }
-            else
-            {
+            } else {
                 double sumaRadios = s.nave.radio + arrEnemies[i].enemy_radio;
                 double distanciaX = s.nave.V[0] - arrEnemies[i].V[0];
                 double distanciaZ = s.nave.V[2] - arrEnemies[i].V[2];
-                if(arrEnemies[i].condicion&&(sumaRadios*sumaRadios)>((distanciaZ*distanciaZ)+(distanciaX*distanciaX)))
-                {
+                if (arrEnemies[i].condicion && (sumaRadios * sumaRadios) > (
+                                               (distanciaZ * distanciaZ) +
+                                               (distanciaX * distanciaX))
+                ) {
                    s.nave.muerto();
                 }
             }
@@ -405,7 +406,7 @@ void update(){
     //Sistema Solar
     DWORD TiempoActual = 0;
     DWORD LastUpdate = 0;
-    DWORD Lapso =0;
+    DWORD Lapso = 0;
     TiempoActual = GetTickCount();
     Lapso = (TiempoActual - LastUpdate);
 
@@ -454,7 +455,7 @@ void init() {
     glLoadIdentity();
     luz();
     gluPerspective(FOV_Y, (GLfloat)WIDTH/HEIGTH, Z_NEAR, Z_FAR);
-    gluLookAt(s.nave.V[0],5,2,s.nave.V[0],0,-4,0,1,0);
+    gluLookAt(s.nave.V[0], 5, 2, s.nave.V[0], 0, -4, 0, 1, 0);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     glClearColor(0,0,0,0);

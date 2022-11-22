@@ -1,0 +1,13 @@
+Lista:
+- Arreglar arreglo de disparos
+- Quitar código sin uso
+- Implementar oleadas de meteoritos
+- Implementar sistemas de vidas
+- Implementar importación de figuras
+- Modelar nave
+- Incluir figura en clase Nave
+- Modelar rocas
+- Variar rocas
+
+Extra:
+- Averiguar que chingados con los sistemas solares

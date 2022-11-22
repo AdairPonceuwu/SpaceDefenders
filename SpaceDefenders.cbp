@@ -44,20 +44,20 @@
 			<Add library="gdi32" />
 			<Add directory="C:/Program Files/CodeBlocks/MinGW/lib" />
 		</Linker>
-		<Unit filename="include/Disparos.h" />
-		<Unit filename="include/Enemy.h" />
-		<Unit filename="include/Nave.h" />
+		<Unit filename=".gitignore" />
+		<Unit filename="disparos.cpp" />
+		<Unit filename="disparos.h" />
+		<Unit filename="enemy.cpp" />
+		<Unit filename="enemy.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="nave.cpp" />
+		<Unit filename="nave.h" />
 		<Unit filename="object.cpp" />
 		<Unit filename="object.h" />
-		<Unit filename="player.h" />
 		<Unit filename="rgbimage.cpp" />
 		<Unit filename="rgbimage.h" />
 		<Unit filename="scene.cpp" />
 		<Unit filename="scene.h" />
-		<Unit filename="src/Disparos.cpp" />
-		<Unit filename="src/Enemy.cpp" />
-		<Unit filename="src/Nave.cpp" />
 		<Unit filename="texturas/textura1.bmp" />
 		<Unit filename="texturas/textura2.bmp" />
 		<Unit filename="texturas/textura3.bmp" />
