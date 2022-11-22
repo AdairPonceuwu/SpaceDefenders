@@ -35,7 +35,7 @@ GLfloat anguloSol = 0.0f;
 //Enemies respawn
 Enemy arrEnemies[30];
 Enemy arrEnemiesRocks[30];
-Disparos arrDisparos[200];
+Disparo arrDisparos[200];
 float delta = 0.0000005;
 float deltaS = 0.005;
 int shoots = 0;
@@ -111,7 +111,7 @@ void keyboardUp(BYTE key, int x, int y) {
             break;
         case 'L':
         case 'l':
-            arrDisparos[shoots]=(Disparos(s.nave.V[0],s.nave.V[1],s.nave.V[2]-.85f,true));
+            arrDisparos[shoots] = (Disparo(s.nave.V[0],s.nave.V[1],s.nave.V[2]-.85f,true));
             shoots++;
     }
     glutPostRedisplay();
@@ -151,7 +151,7 @@ void dibujarEnemies(){
 }
 //Disparos
 void dibujarDisparos(){
-    Disparos shoot = Disparos();
+    Disparo shoot = Disparo();
     for(int i = 0; i < 200; i++) {
         shoot = arrDisparos[i];
         if(arrDisparos[i].disparo && s.nave.vivo) {
@@ -354,7 +354,7 @@ void drawSistemaRocka(){
 //Modificar posciones
 void update(){
     Enemy enemigo = Enemy();
-    Disparos shoot = Disparos();
+    Disparo shoot = Disparo();
     //Nave
     s.nave.update(10);
     //Enemigos
