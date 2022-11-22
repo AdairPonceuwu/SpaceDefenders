@@ -30,12 +30,6 @@ const float FOV_Y = 60.6,
             Z_NEAR = 0.01,
             Z_FAR = 100.0;
 
-//VARIABLES MOVIMIENTO NAVE
-bool izqDown = false;
-bool derDown = false;
-bool adelanteDown = false;
-bool atrasDown = false;
-
 Scene s = Scene();
 
 //float Radio=1.0;
@@ -77,19 +71,19 @@ static void keyboardDown(BYTE key, int x, int y) {
     switch (key) {
         case 'a':
         case 'A':
-            izqDown = true;
+            s.nave.teclas[0] = true;
             break;
         case 'd':
         case 'D':
-            derDown = true;
+            s.nave.teclas[1] = true;
             break;
         case 'w':
         case 'W':
-            adelanteDown=true;
+            s.nave.teclas[2] = true;
             break;
         case 's':
         case 'S':
-            atrasDown=true;
+            s.nave.teclas[3] = true;
             break;
         case 'r':
         case 'R':
@@ -106,19 +100,19 @@ void keyboardUp(BYTE key, int x, int y) {
     switch (key) {
         case 'a':
         case 'A':
-            izqDown = false;
+            s.nave.teclas[0] = false;
             break;
         case 'd':
         case 'D':
-            derDown = false;
+            s.nave.teclas[1] = false;
             break;
         case 'w':
         case 'W':
-            adelanteDown=false;
+            s.nave.teclas[2] = false;
             break;
         case 's':
         case 'S':
-            atrasDown=false;
+            s.nave.teclas[3] = false;
             break;
         case 'L':
         case 'l':
@@ -364,7 +358,7 @@ void update(){
     Enemy enemigo = Enemy();
     Disparos shoot = Disparos();
     //Nave
-    s.nave.update(10,izqDown,derDown,adelanteDown,atrasDown);
+    s.nave.update(10);
     //Enemigos
     for(int i=0;i<30;i++){
         arrEnemies[i];

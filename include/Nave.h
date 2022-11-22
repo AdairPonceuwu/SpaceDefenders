@@ -11,8 +11,14 @@ public:
     float radio = .25f;
     float V[3];
     bool condicion = true;//true vivo, false muerto
+    // mapa de teclas
+    // 0 - izq
+    // 1 - der
+    // 2 - adelante
+    // 3 - atras
+    bool teclas[4] = { false };
 
-    void update(float delta, bool izq, bool der,bool adelante, bool atras);
+    void update(float delta);
     void muerto();
 };
 

@@ -10,17 +10,17 @@ Nave::Nave() {}
 
 Nave::~Nave() {}
 
-void Nave::update(float delta, bool izq, bool der,bool adelante, bool atras){
+void Nave::update(float delta){
 
-    if(izq) {
+    if(teclas[0]) { // izq
         V[0] -= velocidad * delta;
-    } else if (der){
+    } else if (teclas[1]){ // der
         V[0] += velocidad * delta;
     }
 
-    if(adelante) {
+    if(teclas[2]) { // adelante
         V[2] -= velocidad * delta;
-    } else if(atras){
+    } else if(teclas[3]) { // atras
         V[2] += velocidad * delta;
     }
 
