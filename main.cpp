@@ -22,16 +22,22 @@ int year_2=0,day_2=0;
 int solE=0;
 int planet1=0;
 int satelite=0;
-//Variables dimensiones de la pantalla
-const int WIDTH = 1140;
-const int HEIGTH = 648;
+
+// Constantes varias
+const int WIDTH = 1140,
+          HEIGTH = 648;
+const float FOV_Y = 60.6,
+            Z_NEAR = 0.01,
+            Z_FAR = 100.0;
+
 //VARIABLES MOVIMIENTO NAVE
 bool izqDown = false;
 bool derDown = false;
 bool adelanteDown = false;
 bool atrasDown = false;
+
 Scene s = Scene();
-Nave alcon = Nave(0,0,.7f);
+
 //float Radio=1.0;
 GLfloat anguloSol = 0.0f;
 //Enemies respawn
@@ -67,100 +73,69 @@ void cargarEnemigos(){
 }
 }
 
-
-void keypress(int key, int x, int y) {
+static void keyboardDown(BYTE key, int x, int y) {
     switch (key) {
-        case GLUT_KEY_UP:
-        case GLUT_KEY_DOWN:
-        case GLUT_KEY_LEFT:
-        case GLUT_KEY_RIGHT:
-            s.player.keypress(key - 100);
+        case 'a':
+        case 'A':
+            izqDown = true;
+            break;
+        case 'd':
+        case 'D':
+            derDown = true;
+            break;
+        case 'w':
+        case 'W':
+            adelanteDown=true;
+            break;
+        case 's':
+        case 'S':
+            atrasDown=true;
+            break;
+        case 'r':
+        case 'R':
+            if(s.nave.condicion){
+                cargarEnemigos();
+                printf("Juego iniciado\n");
+            }
             break;
     }
-
     glutPostRedisplay();
 }
 
-void keyrelease(int key, int x, int y) {
+void keyboardUp(BYTE key, int x, int y) {
     switch (key) {
-        case GLUT_KEY_UP:
-        case GLUT_KEY_DOWN:
-        case GLUT_KEY_LEFT:
-        case GLUT_KEY_RIGHT:
-            s.player.keyrelease(key - 100);
+        case 'a':
+        case 'A':
+            izqDown = false;
             break;
+        case 'd':
+        case 'D':
+            derDown = false;
+            break;
+        case 'w':
+        case 'W':
+            adelanteDown=false;
+            break;
+        case 's':
+        case 'S':
+            atrasDown=false;
+            break;
+        case 'L':
+        case 'l':
+            arrDisparos[shoots]=(Disparos(s.nave.V[0],s.nave.V[1],s.nave.V[2]-.85f,true));
+            shoots++;
     }
     glutPostRedisplay();
-}
-static void keyboardDown(BYTE key, int x, int y)
-        {
-            char k = (char)key;
-            switch (k)
-            {
-                case 'a':
-                case 'A':
-                    izqDown = true;
-                    break;
-                case 'd':
-                case 'D':
-                    derDown = true;
-                    break;
-                case 'w':
-                case 'W':
-                    adelanteDown=true;
-                    break;
-                case 's':
-                case 'S':
-                    atrasDown=true;
-                    break;
-                case 'r':
-                case 'R':
-                    if(alcon.condicion){
-                        cargarEnemigos();
-                        printf("Juego iniciado\n");
-                    }
-                    break;
-            }
-            glutPostRedisplay();
-}
-
- void keyboardUp(BYTE key, int x, int y)
-{
-            char k = (char)key;
-            switch (k)
-            {
-                case 'a':
-                case 'A':
-                    izqDown = false;
-                    break;
-                case 'd':
-                case 'D':
-                    derDown = false;
-                    break;
-                case 'w':
-                case 'W':
-                    adelanteDown=false;
-                    break;
-                case 's':
-                case 'S':
-                    atrasDown=false;
-                    break;
-                case 'L':
-                case 'l':
-                    arrDisparos[shoots]=(Disparos(alcon.V[0],alcon.V[1],alcon.V[2]-.85f,true));
-                    shoots++;
-            }
-            glutPostRedisplay();
 }
 
 
 //Dibujar nave
 void dibujarNave(){
-    if(!alcon.condicion){printf("GAME OVER\n");exit(1);}
+    if(!s.nave.condicion){printf("GAME OVER\n");exit(1);}
     glPushMatrix();
-    glTranslated(alcon.V[0],alcon.V[1],alcon.V[2]);
+    glTranslated(s.nave.V[0], s.nave.V[1],s.nave.V[2]);
     glRotated(180,1,0,0);
-    glutSolidCone(alcon.radio,.8,100,100);
+    glutSolidCone(s.nave.radio,.8,100,100);
     glPopMatrix();
 }
 //Dibujar enemigos
@@ -187,11 +162,11 @@ void dibujarDisparos(){
     Disparos shoot = Disparos();
     for(int i = 0;i<200;i++){
         shoot=arrDisparos[i];
-        if(arrDisparos[i].disparo && alcon.condicion){
-        glPushMatrix();
-        glTranslated(shoot.V[0],shoot.V[1],shoot.V[2]);
-        drawSphere(shoot.radio,100,100,s.texture_map[3]);
-        glPopMatrix();
+        if(arrDisparos[i].disparo && s.nave.condicion){
+            glPushMatrix();
+            glTranslated(shoot.V[0],shoot.V[1],shoot.V[2]);
+            drawSphere(shoot.radio,100,100,s.texture_map[3]);
+            glPopMatrix();
         }
     }
 
@@ -389,8 +364,7 @@ void update(){
     Enemy enemigo = Enemy();
     Disparos shoot = Disparos();
     //Nave
-    alcon.update(10,izqDown,derDown,adelanteDown,atrasDown);
-    //
+    s.nave.update(10,izqDown,derDown,adelanteDown,atrasDown);
     //Enemigos
     for(int i=0;i<30;i++){
         arrEnemies[i];
@@ -429,12 +403,12 @@ void update(){
             }
             else
             {
-                double sumaRadios = alcon.radio + arrEnemies[i].enemy_radio;
-                double distanciaX = alcon.V[0] - arrEnemies[i].V[0];
-                double distanciaZ = alcon.V[2] - arrEnemies[i].V[2];
+                double sumaRadios = s.nave.radio + arrEnemies[i].enemy_radio;
+                double distanciaX = s.nave.V[0] - arrEnemies[i].V[0];
+                double distanciaZ = s.nave.V[2] - arrEnemies[i].V[2];
                 if(arrEnemies[i].condicion&&(sumaRadios*sumaRadios)>((distanciaZ*distanciaZ)+(distanciaX*distanciaX)))
                 {
-                   alcon.muerto();
+                   s.nave.muerto();
                 }
             }
         }
@@ -490,8 +464,8 @@ void init() {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     luz();
-    gluPerspective(s.player.fov_y, (GLfloat)WIDTH/HEIGTH, s.player.z_near, s.player.z_far);
-    gluLookAt(alcon.V[0],5,2,alcon.V[0],0,-4,0,1,0);
+    gluPerspective(FOV_Y, (GLfloat)WIDTH/HEIGTH, Z_NEAR, Z_FAR);
+    gluLookAt(s.nave.V[0],5,2,s.nave.V[0],0,-4,0,1,0);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     glClearColor(0,0,0,0);

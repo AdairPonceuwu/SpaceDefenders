@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "object.h"
-#include "player.h"
+#include "Nave.h"
 
 //se define la cantidad de texturas que se manejaran
 #define NTextures 20
@@ -12,7 +12,7 @@
 class Scene {
 public:
     std::vector<Object> objects;
-    Player player;
+    Nave nave;
     GLuint texture_map[NTextures];
 
     Scene() {}

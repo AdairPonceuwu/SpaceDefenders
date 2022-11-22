@@ -1,36 +1,29 @@
 #include "Nave.h"
 #include <stdio.h>
-Nave::Nave(float x, float y, float z)
-{
-    condicion=true;
-    V[0]=x;
-    V[1]=y;
-    V[2]=z;
+Nave::Nave(float x, float y, float z) {
+    V[0] = x;
+    V[1] = y;
+    V[2] = z;
 }
 
-Nave::~Nave()
-{
+Nave::Nave() {}
 
-}
-
+Nave::~Nave() {}
 
 void Nave::update(float delta, bool izq, bool der,bool adelante, bool atras){
 
-    if(izq){
-        V[0] -= velocidad*delta;
-    }else{
-        if (der){
-        V[0] += velocidad*delta;
-        }
+    if(izq) {
+        V[0] -= velocidad * delta;
+    } else if (der){
+        V[0] += velocidad * delta;
     }
 
-    if(adelante){
-        V[2] -= velocidad*delta;
-    }else{
-        if(atras){
-            V[2] += velocidad*delta;
-        }
+    if(adelante) {
+        V[2] -= velocidad * delta;
+    } else if(atras){
+        V[2] += velocidad * delta;
     }
+
     //Limites
     if(V[0]<-4.5){
         V[0]=-4.5;
@@ -47,7 +40,7 @@ void Nave::update(float delta, bool izq, bool der,bool adelante, bool atras){
     }
 }
 
-void Nave::muerto(){
-    condicion=false;
+void Nave::muerto() {
+    condicion = false;
 }
 
