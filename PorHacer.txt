@@ -6,6 +6,7 @@ Lista:
 - Modelar rocas
 - Regresar 0 cuando muere
 - Variar rocas
+- Cambiar idioma a inglés
 
 Extra:
 - Averiguar que chingados con los sistemas solares
