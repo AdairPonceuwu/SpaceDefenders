@@ -26,6 +26,10 @@ Enemy::~Enemy() {}
 void Enemy::update() {
     V[2] += velocidad + 0.011;
     angulo = (float)(((int)angulo + 1) % 360);
+
+    if (V[2] > 0.5) {
+        mata();
+    }
 }
 
 void Enemy::draw(GLuint *texture) {

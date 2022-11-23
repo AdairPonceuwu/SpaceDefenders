@@ -86,8 +86,11 @@ void Scene::reset() {
 void Scene::update() {
     nave.update(10);
 
-    // avanza disparos
     bool d_elim[NDisparos] = { false };
+    bool e_elim[NEnemies] = { false };
+    int r = 0;
+
+    // avanza disparos
     for (int i = 0; i < disparos.size(); ++i) {
         disparos[i].update(10);
         if (!disparos[i].vivo) {
@@ -95,10 +98,24 @@ void Scene::update() {
         }
     }
 
+    // avanza enemigos
+    for (int i = 0; i < enemies.size(); ++i) {
+        enemies[i].update();
+        if (!enemies[i].vivo) {
+            e_elim[i] = true;
+        }
+    }
+
     // elimina aquellos que se salieron de rango
     for (int i = 0; i < disparos.size(); ++i) {
         if (d_elim[i]) {
-            disparos.erase(disparos.begin() + i);
+            disparos.erase(disparos.begin() + i - (r++));
+        }
+    }
+    r = 0;
+    for (int i = 0; i < enemies.size(); ++i) {
+        if (e_elim[i]) {
+            enemies.erase(enemies.begin() + i - (r++));
         }
     }
 }
