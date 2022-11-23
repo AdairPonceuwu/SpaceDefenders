@@ -42,7 +42,9 @@ void cargarEnemigos() {
     float z=0;
     for (int r = 0; r < 6; r++) {
         for (int c = 0; c < 5; c++) {
-            s.enemies.push_back(Enemy(-4.5 + r + 0.5f + x, 0, -20 + c + z, rand() % 360));
+            Enemy e = Enemy(-4.5 + r + 0.5f + x, 0, -20 + c + z, rand() % 360);
+            e.set_obj((i % 2 == 0) ? &s.objects[0] : &s.objects[1]);
+            s.enemies.push_back(e);
             z += 0.5;
             ++i;
         }
