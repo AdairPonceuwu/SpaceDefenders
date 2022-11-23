@@ -1,29 +1,35 @@
 #ifndef SD_SCENE
 #define SD_SCENE
 
+#include <GL/glut.h>
 #include <vector>
 
 #include "object.h"
-#include "player.h"
+#include "nave.h"
+#include "disparo.h"
+#include "enemy.h"
 
-//se define la cantidad de texturas que se manejaran
 #define NTextures 20
+#define NDisparos 30
+#define NEnemies 30
 
 class Scene {
 public:
-    std::vector<Object> objects;
-    Player player;
+    std::vector<Enemy> enemies;
+    std::vector<Disparo> disparos;
     GLuint texture_map[NTextures];
+    Nave nave;
 
-    Scene() {}
+    Scene();
 
     void init();
     void load_texture(char *filename, int index);
-    void add_object(Object o);
-    void kill_object(Object *o);
+    void dispara();
     void draw_objects();
     void draw_player();
     void reset();
+    void update();
+    void draw();
 };
 
 #endif // SD_SCENE

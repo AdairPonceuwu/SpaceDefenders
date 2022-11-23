@@ -19,7 +19,7 @@
  *
  */
 
-#include "RgbImage.h"
+#include "rgbimage.h"
 
 #ifndef RGBIMAGE_DONT_USE_OPENGL
 #include <windows.h>
