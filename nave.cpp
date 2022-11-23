@@ -48,18 +48,19 @@ void Nave::update(float delta) {
     if(V[2] > 0){
         V[2] = 0;
     }
-}
 
-void Nave::draw() {
     if (!vivo){
         printf("GAME OVER\n");
         exit(1);
     }
+}
+
+void Nave::draw() {
     glPushMatrix();
     glTranslated(V[0], V[1], V[2]);
     glRotated(180, 1, 0, 0);
     //glutSolidCone(radio, 0.8, 100, 100);
-    //drawSphere(radio, 10, 10, 0);
-    obj->draw();
+    drawSphere(radio, 10, 10, 0);
+    //obj->draw();
     glPopMatrix();
 }
