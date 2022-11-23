@@ -9,7 +9,7 @@
 #include "object.h"
 #include "utils.h"
 
-Object::Object(std::string path, GLuint *t) {
+Object::Object(char* path, GLuint *t) {
     load_obj(path);
     set_texture(t);
 }
@@ -18,12 +18,12 @@ bool Object::set_texture(GLuint *t) {
     texture = t;
 }
 
-void Object::load_obj(std::string path) {
+void Object::load_obj(char* path) {
     std::ifstream file;
     std::string line;
 
     file.open(path);
-    std::cout << "Loading " << path << std::endl;
+    std::cout << "Cargando modelo: " << path << std::endl;
 
     while (getline(file, line)) {
         if (line[0] == 'v' && line[1] == ' ') {

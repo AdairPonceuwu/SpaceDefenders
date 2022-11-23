@@ -1,12 +1,13 @@
 Lista:
-- Implementar oleadas de meteoritos
 - Implementar sistemas de vidas
 - Modelar nave
-- Arreglar velocidad de nave
+- Arreglar velocidad de entidades
 - Modelar rocas
 - Regresar 0 cuando muere
 - Variar rocas
 - Cambiar idioma a inglés
+- Quitar números mágicos
+- bug: Algunos disparos matan más de un enemigo
 
 Extra:
 - Averiguar que chingados con los sistemas solares

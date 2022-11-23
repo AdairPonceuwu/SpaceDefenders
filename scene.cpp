@@ -1,13 +1,41 @@
 #include <cassert>
+#include <string>
+#include <fstream>
+#include <vector>
 #include <iostream>
 
 #include "scene.h"
 #include "object.h"
 #include "enemy.h"
+#include "utils.h"
+
+const int ENEMIES_PER_ROW = 6;
 
 Scene::Scene() {
     disparos.reserve(NDisparos);
     enemies.reserve(NEnemies);
+}
+
+Enemy Scene::alien1(float x, float y, float z, float angulo) {
+    Enemy e = Enemy(x, y, z, angulo, 1.2);
+    e.set_obj(&objects[0]);
+
+    return e;
+}
+
+Enemy Scene::alien2(float x, float y, float z, float angulo) {
+    Enemy e = Enemy(x, y, z, angulo, 1.2);
+    e.set_obj(&objects[1]);
+
+    return e;
+}
+
+Enemy Scene::roca(float x, float y, float z, float angulo) {
+    Enemy e = Enemy(x, y, z, angulo, 1.8);
+    e.scale(0.4);
+    e.set_obj(&objects[3]);
+
+    return e;
 }
 
 void Scene::init() {
@@ -39,7 +67,10 @@ void Scene::init() {
     objects[0] = Object("modelos/alien.obj", &texture_map[2]);
     objects[1] = Object("modelos/alien.obj", &texture_map[4]);
     objects[2] = Object("modelos/nave.obj", &texture_map[5]);
+    objects[3] = Object("modelos/piedra.obj", &texture_map[16]);
     nave.set_obj(&objects[2]);
+
+    load_waves("oleadas/oleadas.ol");
 }
 
 void Scene::load_texture(char *filename, int index) {
@@ -65,6 +96,44 @@ void Scene::load_texture(char *filename, int index) {
     theTexMap.Reset();
 }
 
+void Scene::load_waves(char *filename) {
+    std::ifstream file;
+    std::string line = "";
+
+    file.open(filename);
+    std::cout << "Cargando oleadas: " << filename << std::endl;
+    std::vector<char> wave;
+
+    while (getline(file, line)) {
+        trim(line);
+        assert(
+           line.length() <= ENEMIES_PER_ROW &&
+           "No se permiten oleadas de más de 5 enemigos por fila."
+       );
+
+        if (line[0] == 'w') {
+            if (wave.size() != 0) {
+                waves.push_back(wave);
+            }
+
+            wave.clear();
+            continue;
+        }
+
+        for (int i = 0; i < line.length(); ++i) {
+            wave.push_back(line[i]);
+        }
+        // completa línea
+        for (int i = 0; i < ENEMIES_PER_ROW - line.length(); ++i) {
+            wave.push_back(' ');
+        }
+    }
+
+    if (wave.size() != 0) {
+        waves.push_back(wave);
+    }
+}
+
 void Scene::dispara() {
     if (disparos.size() < NDisparos) {
         float x = nave.V[0],
@@ -72,11 +141,10 @@ void Scene::dispara() {
               z = nave.V[2] - 0.85;
 
         disparos.push_back(Disparo(x, y, z));
-        std::cout << "Disparando!" << std::endl;
     }
 }
 
-void Scene::update() {
+void Scene::update(int delta) {
     nave.update(10);
 
     // avanza disparos
@@ -116,6 +184,7 @@ void Scene::update() {
             enemies.erase(i);
         }
     }
+    active_wave = enemies.size() != 0;
 }
 
 void Scene::draw() {
@@ -131,4 +200,52 @@ void Scene::draw() {
     for (int i = 0; i < enemies.size(); ++i) {
         enemies[i].draw();
     }
+}
+
+void Scene::gen_enemy_wave() {
+    if (active_wave) {
+        return;
+    }
+
+    if (wave_index == waves.size()) {
+        std::cout << "No hay más oleadas" << std::endl;
+        return;
+    }
+
+    const float X_SPACE = 0.8,
+                X_BOTTOM = -4.5,
+                Z_SPACE = -0.8,
+                Z_BOTTOM = -20;
+
+    active_wave = true;
+    Enemy e;
+
+    float x, z;
+    int c = 0, j = 0;
+
+    while (c < waves[wave_index].size()) {
+        for (int i = 0; i < ENEMIES_PER_ROW; ++i) {
+            x = X_BOTTOM + i + (i * X_SPACE);
+            z = Z_BOTTOM - j + (j * Z_SPACE);
+
+            switch(waves[wave_index][c]) {
+            case 'a':
+                e = alien1(x, 0, z, rand() % 360);
+                enemies.push_back(e);
+                break;
+            case 'A':
+                e = alien2(x, 0, z, rand() % 360);
+                enemies.push_back(e);
+                break;
+            case 'r':
+                e = roca(x, 0, z, rand() % 360);
+                enemies.push_back(e);
+                break;
+            }
+
+            c++;
+        }
+        ++j;
+    }
+    wave_index++;
 }

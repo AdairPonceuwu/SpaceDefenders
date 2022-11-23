@@ -27,32 +27,13 @@ const int WIDTH = 1140,
 const float FOV_Y = 60.6,
             Z_NEAR = 0.01,
             Z_FAR = 100.0;
+int delta_t = 0, odelta_t = 0;
 
 Scene s = Scene();
 
 GLfloat anguloSol = 0.0f;
 
 float luz_difusa[] = {1, 1, 1, 0};
-
-
-//Dibujar enemigos
-void cargarEnemigos() {
-    int i = 0;
-    float x=0;
-    float z=0;
-    for (int r = 0; r < 6; r++) {
-        for (int c = 0; c < 5; c++) {
-            Enemy e = Enemy(-4.5 + r + 0.5f + x, 0, -20 + c + z, rand() % 360);
-            e.set_obj((i % 2 == 0) ? &s.objects[0] : &s.objects[1]);
-            s.enemies.push_back(e);
-            z += 0.5;
-            ++i;
-        }
-        x += 0.6;
-        z = 0;
-    }
-    printf("%d\n", i);
-}
 
 static void keyboardDown(BYTE key, int x, int y) {
     switch (key) {
@@ -74,9 +55,8 @@ static void keyboardDown(BYTE key, int x, int y) {
             break;
         case 'r':
         case 'R':
-            if(s.nave.vivo){
-                cargarEnemigos();
-                printf("Juego iniciado\n");
+            if(s.nave.vivo) {
+                s.gen_enemy_wave();
             }
             break;
     }
@@ -331,8 +311,11 @@ void luz(){
 void display() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     update();
+
+    delta_t = glutGet(GLUT_ELAPSED_TIME);
+    s.update(delta_t - odelta_t);
+    odelta_t = delta_t;
     drawAxis();
-    s.update();
     s.draw();
     // drawSistemaEstrellas();
     drawSistemaRocka();

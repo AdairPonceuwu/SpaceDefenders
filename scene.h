@@ -11,7 +11,7 @@
 #include "colisionador.h"
 
 #define NTextures 20
-#define NObjects 3
+#define NObjects 4
 #define NDisparos 30
 #define NEnemies 30
 
@@ -25,12 +25,22 @@ public:
     Nave nave;
 
     Scene();
+    Enemy alien1(float x, float y, float z, float angulo);
+    Enemy alien2(float x, float y, float z, float angulo);
+    Enemy roca(float x, float y, float z, float angulo);
 
     void init();
-    void load_texture(char *filename, int index);
     void dispara();
-    void update();
+    void update(int delta);
     void draw();
+    void gen_enemy_wave();
+private:
+    void load_texture(char *filename, int index);
+    void load_waves(char *filename);
+
+    bool active_wave = false;
+    int wave_index = 0;
+    std::vector<std::vector<char>> waves;
 };
 
 #endif // SD_SCENE
