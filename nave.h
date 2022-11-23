@@ -1,7 +1,9 @@
 #ifndef NAVE_H
 #define NAVE_H
 
-class Nave {
+#include "entity.h"
+
+class Nave : public Entity {
 public:
     Nave(float x, float y, float z);
     Nave();
@@ -10,10 +12,6 @@ public:
     void draw();
     void muerto();
 
-    float V[3];
-    bool vivo = true; //true vivo, false muerto
-    float velocidad = .0055f;
-    float radio = .25f;
     // mapa de teclas
     // 0 - izq
     // 1 - der
