@@ -7,6 +7,7 @@
 #include <vector>
 
 #include "object.h"
+#include "utils.h"
 
 Object::Object(std::string path, GLuint *t) {
     load_obj(path);
@@ -45,11 +46,40 @@ void Object::load_obj(std::string path) {
     }
 
     file.close();
-    std::cout << vertices[0] << std::endl;
 }
 
 void Object::draw() {
-    assert(false && "draw not implemented!");
+    glEnable(GL_TEXTURE_2D);
+    glDisable(GL_LIGHTING);
+    glColor3f(1.0,1.0,1.0);
+    glBindTexture(GL_TEXTURE_2D, *texture);
+    glBegin(GL_TRIANGLES);
+        for (int i = 0; i < faces.size(); i += 3) {
+            int v1 = faces[i] * 3,
+                v2 = faces[i + 1] * 3,
+                v3 = faces[i + 2] * 3;
+            glTexCoord2f(0.0, 0.0);
+            glVertex3f(
+                vertices[v1],
+                vertices[v1 + 1],
+                vertices[v1 + 2]
+            );
+            glTexCoord2f(0.0, 1.0);
+            glVertex3f(
+                vertices[v2],
+                vertices[v2 + 1],
+                vertices[v2 + 2]
+            );
+            glTexCoord2f(1.0, 1.0);
+            glVertex3f(
+                vertices[v3],
+                vertices[v3 + 1],
+                vertices[v3 + 2]
+            );
+        }
+    glEnd();
+    glEnable(GL_LIGHTING);
+    glDisable(GL_TEXTURE_2D);
 }
 
 float* Object::parse_vert_line(std::string line) {
