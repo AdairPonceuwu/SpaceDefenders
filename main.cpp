@@ -296,59 +296,23 @@ void drawSistemaRocka(){
 }
 //Modificar posciones
 void update(){
-    //Enemigos
-    for(int i=0; i < s.enemies.size(); i++){
-        s.enemies[i].update();
-    }
-    /*
-    //
-    //Colisiones
-    for(int i = 0; i < 30; i++) {
-        for (int j = 0; j < 100; j++) {
-            shoot = arrDisparos[j];
-            if(arrDisparos[j].disparo) {
-                double sumaRadios = arrEnemies[i].enemy_radio + arrDisparos[j].radio;
-                double distanciaZ = arrEnemies[i].V[2]-arrDisparos[j].V[2];
-                double distanciaX = arrEnemies[i].V[0]-arrDisparos[j].V[0];
-                if (arrEnemies[i].condicion && (sumaRadios * sumaRadios) > (
-                                               (distanciaZ * distanciaZ) +
-                                               (distanciaX * distanciaX))
-                    ) {
-                    arrEnemies[i].enemy_radio = 0;
-                    arrEnemies[i].muerto();
-                    arrDisparos[j].disparo = false;
-               }
-            } else {
-                double sumaRadios = s.nave.radio + arrEnemies[i].enemy_radio;
-                double distanciaX = s.nave.V[0] - arrEnemies[i].V[0];
-                double distanciaZ = s.nave.V[2] - arrEnemies[i].V[2];
-                if (arrEnemies[i].condicion && (sumaRadios * sumaRadios) > (
-                                               (distanciaZ * distanciaZ) +
-                                               (distanciaX * distanciaX))
-                ) {
-                   s.nave.muerto();
-                }
-            }
-        }
-    }
-    */
     //Sistema Solar
     DWORD TiempoActual = 0;
     DWORD LastUpdate = 0;
     DWORD Lapso = 0;
     TiempoActual = GetTickCount();
-    Lapso = (TiempoActual - LastUpdate);
+    Lapso = TiempoActual - LastUpdate;
 
-    if(Lapso>=30){
-            year=((year+1)%360);
-            solE=(solE-2)%360;
-            day=(day+2)%360;
-            year_1=((year_1+4)%360);
-            year_2=((year_2+3)%360);
-            LastUpdate=TiempoActual;
-            satelite = (satelite-4)%360;
-            day_2=(day_2-4)%360;
-            day_1=(day_1-3)%360;
+    if (Lapso >= 30){
+        year = (year + 1) % 360;
+        solE = (solE - 2) % 360;
+        day = (day + 2) % 360;
+        year_1 = (year_1 + 4) % 360;
+        year_2 = (year_2+3) % 360;
+        LastUpdate = TiempoActual;
+        satelite = (satelite - 4) % 360;
+        day_2 = (day_2 - 4) % 360;
+        day_1 = (day_1 - 3) % 360;
     }
 }
 //--------------------------------------------------------------------------

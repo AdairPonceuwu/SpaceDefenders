@@ -8,6 +8,7 @@
 #include "nave.h"
 #include "disparo.h"
 #include "enemy.h"
+#include "colisionador.h"
 
 #define NTextures 20
 #define NDisparos 30
@@ -15,9 +16,10 @@
 
 class Scene {
 public:
+    GLuint texture_map[NTextures];
+    Colisionador c = Colisionador();
     std::vector<Enemy> enemies;
     std::vector<Disparo> disparos;
-    GLuint texture_map[NTextures];
     Nave nave;
 
     Scene();
