@@ -9,7 +9,7 @@ public:
     Enemy();
     virtual ~Enemy();
 
-    void update();
+    void update(float delta);
     void draw();
 };
 

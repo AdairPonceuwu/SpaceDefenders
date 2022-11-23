@@ -5,19 +5,24 @@
 #include "enemy.h"
 #include "utils.h"
 
+const float ENEMY_SPEED = 1.5f;
+
 Enemy::Enemy(float x, float y, float z, float angulo, float rad) {
     move(x, y, z);
     scale(0.5);
     rotate(angulo, 0, 1, 0);
     radio = rad;
+    velocidad = ENEMY_SPEED;
 }
 
-Enemy::Enemy() {}
+Enemy::Enemy() {
+    velocidad = ENEMY_SPEED;
+}
 
 Enemy::~Enemy() {}
 
-void Enemy::update() {
-    V[2] += velocidad + 0.011;
+void Enemy::update(float delta) {
+    V[2] += velocidad * delta;
     angulo = (float)(((int)angulo + 1) % 360);
 
     if (V[2] > 0.5) {

@@ -155,7 +155,7 @@ void Scene::update(int delta) {
 
     // avanza enemigos
     for (int i = 0; i < enemies.size(); ++i) {
-        enemies[i].update();
+        enemies[i].update(d);
 
         // checa colisiones con nave
         if (c.checa(&nave, &enemies[i])) {
