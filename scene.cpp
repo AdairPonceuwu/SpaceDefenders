@@ -38,7 +38,8 @@ void Scene::init() {
 
     objects[0] = Object("modelos/alien.obj", &texture_map[2]);
     objects[1] = Object("modelos/alien.obj", &texture_map[4]);
-    //nave.set_obj(&objects[0]);
+    objects[2] = Object("modelos/nave.obj", &texture_map[5]);
+    nave.set_obj(&objects[2]);
 }
 
 void Scene::load_texture(char *filename, int index) {

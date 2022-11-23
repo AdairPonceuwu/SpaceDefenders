@@ -58,9 +58,10 @@ void Nave::update(float delta) {
 void Nave::draw() {
     glPushMatrix();
     glTranslated(V[0], V[1], V[2]);
-    glRotated(180, 1, 0, 0);
+    //glRotated(180, 1, 0, 0);
+    glScaled(0.3, 0.3, 0.3);
     //glutSolidCone(radio, 0.8, 100, 100);
-    drawSphere(radio, 10, 10, 0);
-    //obj->draw();
+    //drawSphere(radio, 10, 10, 0);
+    obj->draw();
     glPopMatrix();
 }
