@@ -6,7 +6,7 @@
 #include "object.h"
 #include "utils.h"
 
-const float PLAYER_SPEED = 0.0055f;
+const float PLAYER_SPEED = 3.5f;
 const float PLAYER_RAD = 0.25;
 
 Nave::Nave(float x, float y, float z) {
