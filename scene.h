@@ -11,12 +11,14 @@
 #include "colisionador.h"
 
 #define NTextures 20
+#define NObjects 3
 #define NDisparos 30
 #define NEnemies 30
 
 class Scene {
 public:
     GLuint texture_map[NTextures];
+    Object objects[NObjects];
     Colisionador c = Colisionador();
     std::vector<Enemy> enemies;
     std::vector<Disparo> disparos;
@@ -27,9 +29,6 @@ public:
     void init();
     void load_texture(char *filename, int index);
     void dispara();
-    void draw_objects();
-    void draw_player();
-    void reset();
     void update();
     void draw();
 };

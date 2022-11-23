@@ -2,6 +2,7 @@
 #define NAVE_H
 
 #include "entity.h"
+#include "object.h"
 
 class Nave : public Entity {
 public:
@@ -9,7 +10,7 @@ public:
     Nave();
     virtual ~Nave();
     void update(float delta);
-    void draw(GLuint *texture);
+    void draw();
 
     // mapa de teclas
     // 0 - izq

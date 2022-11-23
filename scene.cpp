@@ -35,6 +35,10 @@ void Scene::init() {
     for (int i = 0; i < T; ++i) {
         load_texture(archivos[i], i);
     }
+
+    objects[0] = Object("modelos/alien.obj", &texture_map[2]);
+    objects[1] = Object("modelos/alien.obj", &texture_map[4]);
+    //nave.set_obj(&objects[0]);
 }
 
 void Scene::load_texture(char *filename, int index) {
@@ -69,18 +73,6 @@ void Scene::dispara() {
         disparos.push_back(Disparo(x, y, z));
         std::cout << "Disparando!" << std::endl;
     }
-}
-
-void Scene::draw_objects() {
-    assert(false && "draw_objects not implemented!");
-}
-
-void Scene::draw_player() {
-    assert(false && "draw_player not implemented!");
-}
-
-void Scene::reset() {
-    assert(false && "reset not implemented!");
 }
 
 void Scene::update() {
@@ -127,7 +119,7 @@ void Scene::update() {
 
 void Scene::draw() {
     // dibuja nave
-    nave.draw(0);
+    nave.draw();
 
     // dibuja disparos
     for (int i = 0; i < disparos.size(); ++i) {
@@ -136,10 +128,6 @@ void Scene::draw() {
 
     // dibuja enemigos
     for (int i = 0; i < enemies.size(); ++i) {
-        if (i % 2 == 0) {
-            enemies[i].draw(&texture_map[2]);
-        } else {
-            enemies[i].draw(&texture_map[4]);
-        }
+        enemies[i].draw();
     }
 }

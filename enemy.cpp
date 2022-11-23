@@ -32,11 +32,13 @@ void Enemy::update() {
     }
 }
 
-void Enemy::draw(GLuint *texture) {
+void Enemy::draw() {
     glPushMatrix();
     glTranslated(V[0], V[1], V[2]);
     glRotated(angulo, 0, 1, 0);
-    drawCone(*texture);
+    glScaled(0.5, 0.5, 0.5);
+    //drawCone(*texture);
     //drawSphere(radio, 10, 10, 0);
+    obj->draw();
     glPopMatrix();
 }
