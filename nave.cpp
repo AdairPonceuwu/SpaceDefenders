@@ -3,6 +3,7 @@
 #include <GL/glut.h>
 
 #include "nave.h"
+#include "object.h"
 #include "utils.h"
 
 Nave::Nave(float x, float y, float z) {
@@ -49,7 +50,7 @@ void Nave::update(float delta) {
     }
 }
 
-void Nave::draw(GLuint *texture) {
+void Nave::draw(Object *obj) {
     if (!vivo){
         printf("GAME OVER\n");
         exit(1);
@@ -57,7 +58,8 @@ void Nave::draw(GLuint *texture) {
     glPushMatrix();
     glTranslated(V[0], V[1], V[2]);
     glRotated(180, 1, 0, 0);
-    glutSolidCone(radio, 0.8, 100, 100);
+    //glutSolidCone(radio, 0.8, 100, 100);
     //drawSphere(radio, 10, 10, 0);
+    obj->draw();
     glPopMatrix();
 }

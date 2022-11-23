@@ -2,6 +2,7 @@
 #define ENTITY_H
 
 #include <GL/glut.h>
+#include "object.h"
 
 class Entity {
 public:
@@ -13,6 +14,7 @@ public:
 
     virtual void update() {};
     virtual void draw(GLuint *texture) {};
+    virtual void draw(Object *obj) {};
     virtual void mata() {
         vivo = false;
     };
