@@ -27,6 +27,7 @@ const int WIDTH = 1140,
 const float FOV_Y = 60.6,
             Z_NEAR = 0.01,
             Z_FAR = 100.0;
+int delta_t = 0, odelta_t = 0;
 
 Scene s = Scene();
 
@@ -310,8 +311,11 @@ void luz(){
 void display() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     update();
+
+    delta_t = glutGet(GLUT_ELAPSED_TIME);
+    s.update(delta_t - odelta_t);
+    odelta_t = delta_t;
     drawAxis();
-    s.update();
     s.draw();
     // drawSistemaEstrellas();
     drawSistemaRocka();

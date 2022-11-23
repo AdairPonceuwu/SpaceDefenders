@@ -144,7 +144,7 @@ void Scene::dispara() {
     }
 }
 
-void Scene::update() {
+void Scene::update(int delta) {
     nave.update(10);
 
     // avanza disparos

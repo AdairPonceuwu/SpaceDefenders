@@ -31,7 +31,7 @@ public:
 
     void init();
     void dispara();
-    void update();
+    void update(int delta);
     void draw();
     void gen_enemy_wave();
 private:
