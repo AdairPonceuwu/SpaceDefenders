@@ -14,6 +14,20 @@ Scene::Scene() {
     enemies.reserve(NEnemies);
 }
 
+Enemy Scene::alien1(float x, float y, float z, float angulo) {
+    Enemy e = Enemy(x, y, z, angulo);
+    e.set_obj(&objects[0]);
+
+    return e;
+}
+
+Enemy Scene::alien2(float x, float y, float z, float angulo) {
+    Enemy e = Enemy(x, y, z, angulo);
+    e.set_obj(&objects[1]);
+
+    return e;
+}
+
 void Scene::init() {
     const int T = 17;
     char *archivos[T] = {
@@ -81,8 +95,9 @@ void Scene::load_waves(char *filename) {
 
     while (getline(file, line)) {
         trim(line);
+        std::cout << line << std::endl;
         assert(
-           line.length() <= 5 &&
+           line.length() <= 6 &&
            "No se permiten oleadas de más de 5 enemigos por fila."
        );
 
@@ -99,7 +114,7 @@ void Scene::load_waves(char *filename) {
             wave.push_back(line[i]);
         }
         // completa línea
-        for (int i = 0; i < 5 - line.length(); ++i) {
+        for (int i = 0; i < 6 - line.length(); ++i) {
             wave.push_back(' ');
         }
     }
@@ -183,7 +198,7 @@ void Scene::gen_enemy_wave() {
         return;
     }
 
-    if (wave_index > waves.size()) {
+    if (wave_index == waves.size()) {
         std::cout << "No hay más oleadas" << std::endl;
         return;
     }
@@ -197,16 +212,31 @@ void Scene::gen_enemy_wave() {
     Enemy e;
 
     float x, z;
+    int c = 0, j = 0;
 
-    for (int i = 0; i < 6; ++i) {
-        for (int j = 0; j < 5; ++j) {
+    for (int i = 0; i < waves[wave_index].size(); ++i) {
+        std::cout << waves[wave_index][i] << std::endl;
+    }
+
+    while (c < waves[wave_index].size()) {
+        for (int i = 0; i < 6; ++i) {
             x = X_BOTTOM + i + (i * X_SPACE);
             z = Z_BOTTOM - j + (j * Z_SPACE);
 
-            e = alien1(x, 0, z, rand() % 360);
-            //e.set_obj((i % 2 == 0) ? &objects[0] : &objects[1]);
-            enemies.push_back(e);
+            switch(waves[wave_index][c]) {
+            case 'a':
+                e = alien1(x, 0, z, rand() % 360);
+                enemies.push_back(e);
+                break;
+            case 'A':
+                e = alien2(x, 0, z, rand() % 360);
+                enemies.push_back(e);
+                break;
+            }
+
+            c++;
         }
+        ++j;
     }
     wave_index++;
 }

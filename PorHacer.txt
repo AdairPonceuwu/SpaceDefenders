@@ -1,12 +1,14 @@
 Lista:
 - Implementar oleadas de meteoritos
+- Cambiar std::string por char* en path (object.cpp/h)
 - Implementar sistemas de vidas
 - Modelar nave
-- Arreglar velocidad de nave
+- Arreglar velocidad de entidades
 - Modelar rocas
 - Regresar 0 cuando muere
 - Variar rocas
 - Cambiar idioma a inglés
+- Quitar números mágicos
 
 Extra:
 - Averiguar que chingados con los sistemas solares

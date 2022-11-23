@@ -25,6 +25,8 @@ public:
     Nave nave;
 
     Scene();
+    Enemy alien1(float x, float y, float z, float angulo);
+    Enemy alien2(float x, float y, float z, float angulo);
 
     void init();
     void dispara();
