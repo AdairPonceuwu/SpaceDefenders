@@ -96,7 +96,7 @@ void Scene::update() {
     bool d_elim[NDisparos] = { false };
     for (int i = 0; i < disparos.size(); ++i) {
         disparos[i].update(10);
-        if (disparos[i].fuera_de_rango) {
+        if (!disparos[i].vivo) {
             d_elim[i] = true;
         }
     }
@@ -110,7 +110,7 @@ void Scene::update() {
 }
 
 void Scene::draw() {
-    nave.draw();
+    nave.draw(0);
     for (int i = 0; i < disparos.size(); ++i) {
         disparos[i].draw(texture_map[3]);
     }
