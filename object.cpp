@@ -23,7 +23,7 @@ void Object::load_obj(std::string path) {
     std::string line;
 
     file.open(path);
-    std::cout << "Loading " << path << std::endl;
+    std::cout << "Cargando modelo: " << path << std::endl;
 
     while (getline(file, line)) {
         if (line[0] == 'v' && line[1] == ' ') {

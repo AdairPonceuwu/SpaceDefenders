@@ -68,7 +68,7 @@ bool RgbImage::LoadBmpFile( const char* filename )
 		return false;
 	}
 	else
-        fprintf(stderr, "Si abre el archivo: %s\n", filename);
+        fprintf(stderr, "Cargando textura: %s\n", filename);
 
 	bool fileFormatOK = false;
 	int bChar = fgetc( infile );

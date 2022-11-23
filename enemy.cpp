@@ -12,13 +12,11 @@ Enemy::Enemy(float x, float y, float z, float angulo) {
     radio = 1.2f;
     velocidad = 0.00015f;
     this->angulo = angulo;
-    printf("crea enemigo!\n");
 }
 
 Enemy::Enemy() {
     radio = 0.45f;
     velocidad = 0.00015f;
-    printf("crea enemigo sin parametros!");
 }
 
 Enemy::~Enemy() {}

@@ -54,9 +54,8 @@ static void keyboardDown(BYTE key, int x, int y) {
             break;
         case 'r':
         case 'R':
-            if(s.nave.vivo){
+            if(s.nave.vivo) {
                 s.gen_enemy_wave();
-                printf("Juego iniciado\n");
             }
             break;
     }

@@ -100,12 +100,11 @@ void Scene::load_waves(char *filename) {
     std::string line = "";
 
     file.open(filename);
-    std::cout << "Cargando oleadas" << std::endl;
+    std::cout << "Cargando oleadas: " << filename << std::endl;
     std::vector<char> wave;
 
     while (getline(file, line)) {
         trim(line);
-        std::cout << line << std::endl;
         assert(
            line.length() <= 6 &&
            "No se permiten oleadas de más de 5 enemigos por fila."
@@ -141,7 +140,6 @@ void Scene::dispara() {
               z = nave.V[2] - 0.85;
 
         disparos.push_back(Disparo(x, y, z));
-        std::cout << "Disparando!" << std::endl;
     }
 }
 
@@ -223,10 +221,6 @@ void Scene::gen_enemy_wave() {
 
     float x, z;
     int c = 0, j = 0;
-
-    for (int i = 0; i < waves[wave_index].size(); ++i) {
-        std::cout << waves[wave_index][i] << std::endl;
-    }
 
     while (c < waves[wave_index].size()) {
         for (int i = 0; i < 6; ++i) {
