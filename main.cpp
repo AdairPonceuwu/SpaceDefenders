@@ -42,12 +42,12 @@ void cargarEnemigos() {
     float z=0;
     for (int r = 0; r < 6; r++) {
         for (int c = 0; c < 5; c++) {
-            s.enemies.push_back(Enemy(-4.5 + r +0.5f+x, 0, -20 + c+z,rand() % 360));
-            z+=0.5;
+            s.enemies.push_back(Enemy(-4.5 + r + 0.5f + x, 0, -20 + c + z, rand() % 360));
+            z += 0.5;
             ++i;
         }
-        x+=0.6;
-        z=0;
+        x += 0.6;
+        z = 0;
     }
     printf("%d\n", i);
 }
@@ -104,25 +104,6 @@ void keyboardUp(BYTE key, int x, int y) {
             s.dispara();
     }
     glutPostRedisplay();
-}
-
-//Dibujar enemigos
-void dibujarEnemies(){
-    for(int i = 0; i < s.enemies.size(); i++){
-        Enemy enemigo = s.enemies[i];
-        if(s.enemies[i].vivo && s.enemies[i].V[2] != 0){
-            glPushMatrix();
-            //glScaled(1,1,1);
-            glTranslated(enemigo.V[0], enemigo.V[1], enemigo.V[2]);
-            glRotated(enemigo.angulo, 0, 1, 0);
-            if (i % 2 == 0) {
-                drawCone(s.texture_map[2]);
-            } else {
-                drawCone(s.texture_map[4]);
-            }
-            glPopMatrix();
-        }
-    }
 }
 
 //Fondo
@@ -387,7 +368,6 @@ void display() {
     drawAxis();
     s.update();
     s.draw();
-    dibujarEnemies();
     // drawSistemaEstrellas();
     drawSistemaRocka();
     drawSistemaSolar();
@@ -437,4 +417,3 @@ int main(int argc, char **argv) {
     glutMainLoop();
     return 0;
 }
-

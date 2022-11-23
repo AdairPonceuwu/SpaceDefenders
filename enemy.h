@@ -10,7 +10,7 @@ public:
     virtual ~Enemy();
 
     void update();
-    void draw(GLuint texture);
+    void draw(GLuint *texture);
 };
 
 #endif // ENEMY_H

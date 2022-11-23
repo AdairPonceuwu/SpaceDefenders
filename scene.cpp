@@ -104,8 +104,20 @@ void Scene::update() {
 }
 
 void Scene::draw() {
+    // dibuja nave
     nave.draw(0);
+
+    // dibuja disparos
     for (int i = 0; i < disparos.size(); ++i) {
-        disparos[i].draw(texture_map[3]);
+        disparos[i].draw(&texture_map[3]);
+    }
+
+    // dibuja enemigos
+    for (int i = 0; i < enemies.size(); ++i) {
+        if (i % 2 == 0) {
+            enemies[i].draw(&texture_map[2]);
+        } else {
+            enemies[i].draw(&texture_map[4]);
+        }
     }
 }
