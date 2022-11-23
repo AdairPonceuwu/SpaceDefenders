@@ -1,5 +1,4 @@
 Lista:
-- Cambiar std::string por char* en path (object.cpp/h)
 - Implementar sistemas de vidas
 - Modelar nave
 - Arreglar velocidad de entidades

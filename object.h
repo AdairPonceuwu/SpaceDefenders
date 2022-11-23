@@ -10,9 +10,9 @@
 class Object {
 public:
     Object() {}
-    Object(std::string path, GLuint *t);
+    Object(char* path, GLuint *t);
     bool set_texture(GLuint *t);
-    void load_obj(std::string path);
+    void load_obj(char* path);
 
     void draw();
     void update(float v[3]);
