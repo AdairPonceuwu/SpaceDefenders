@@ -13,7 +13,7 @@ public:
     virtual ~Disparo();
 
     void update(float delta);
-    void draw(GLuint texture);
+    void draw(GLuint *texture);
 };
 
 #endif // DISPARO_H

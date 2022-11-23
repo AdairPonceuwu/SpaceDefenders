@@ -22,9 +22,9 @@ void Disparo::update(float delta) {
     }
 }
 
-void Disparo::draw(GLuint texture) {
+void Disparo::draw(GLuint *texture) {
     glPushMatrix();
     glTranslated(V[0], V[1], V[2]);
-    drawSphere(radio, 100, 100, texture);
+    drawSphere(radio, 100, 100, *texture);
     glPopMatrix();
 }
