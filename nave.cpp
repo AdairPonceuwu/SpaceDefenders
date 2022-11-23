@@ -50,7 +50,7 @@ void Nave::update(float delta) {
     }
 }
 
-void Nave::draw(Object *obj) {
+void Nave::draw() {
     if (!vivo){
         printf("GAME OVER\n");
         exit(1);

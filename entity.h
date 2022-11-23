@@ -11,13 +11,17 @@ public:
           angulo,
           V[3];
     bool vivo = true;
+    Object *obj;
 
-    virtual void update() {};
-    virtual void draw(GLuint *texture) {};
-    virtual void draw(Object *obj) {};
+    virtual void update() {}
+    virtual void draw(GLuint *texture) {}
+    virtual void draw() {}
+    virtual void set_obj(Object *o) {
+        obj = o;
+    }
     virtual void mata() {
         vivo = false;
-    };
+    }
 };
 
 #endif // ENTITY_H

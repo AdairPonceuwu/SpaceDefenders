@@ -340,7 +340,6 @@ void display() {
     glLoadIdentity();
 }
 
-
 void init() {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();

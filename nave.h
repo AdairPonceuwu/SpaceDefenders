@@ -10,7 +10,7 @@ public:
     Nave();
     virtual ~Nave();
     void update(float delta);
-    void draw(Object *obj);
+    void draw();
 
     // mapa de teclas
     // 0 - izq
