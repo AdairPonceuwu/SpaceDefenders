@@ -116,6 +116,7 @@ void Scene::update() {
             enemies.erase(i);
         }
     }
+    active_wave = enemies.size() != 0;
 }
 
 void Scene::draw() {
@@ -139,8 +140,8 @@ void Scene::gen_enemy_wave() {
         return;
     }
 
-    const float X_SPACE = 0.5,
-                X_BOTTOM = -4,
+    const float X_SPACE = 0.8,
+                X_BOTTOM = -4.5,
                 Z_SPACE = -0.8,
                 Z_BOTTOM = -20;
 
