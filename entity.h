@@ -24,6 +24,11 @@ public:
     virtual void mata() {
         vivo = false;
     }
+    virtual void move(float x, float y, float z) {
+        V[0] = x;
+        V[1] = y;
+        V[2] = z;
+    }
     virtual void rotate(float angle, float x, float y, float z) {
         angulo = angle;
         R[0] = x;

@@ -7,12 +7,8 @@
 #include "utils.h"
 
 Nave::Nave(float x, float y, float z) {
-    V[0] = x;
-    V[1] = y;
-    V[2] = z;
-    S[0] = 0.3;
-    S[1] = 0.3;
-    S[2] = 0.3;
+    move(x, y, z);
+    scale(0.3);
     velocidad = 0.0055f;
     radio = 0.25f;
 }
@@ -20,9 +16,7 @@ Nave::Nave(float x, float y, float z) {
 Nave::Nave() {
     velocidad = 0.0055f;
     radio = 0.25f;
-    S[0] = 0.3;
-    S[1] = 0.3;
-    S[2] = 0.3;
+    scale(0.3);
 }
 
 Nave::~Nave() {}

@@ -6,12 +6,8 @@
 #include "utils.h"
 
 Enemy::Enemy(float x, float y, float z, float angulo) {
-    V[0] = x;
-    V[1] = y;
-    V[2] = z;
-    S[0] = 0.5;
-    S[1] = 0.5;
-    S[2] = 0.5;
+    move(x, y, z);
+    scale(0.5);
     R[1] = 1.0;
     radio = 0.45f;
     velocidad = 0.00015f;
