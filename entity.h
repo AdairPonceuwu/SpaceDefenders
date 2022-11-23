@@ -10,8 +10,10 @@ public:
     bool vivo = true;
 
     virtual void update() {};
-    virtual void draw() {};
-    virtual void muerto() {};
+    virtual void draw(GLuint texture) {};
+    virtual void mata() {
+        vivo = false;
+    };
 };
 
 #endif // ENTITY_H
