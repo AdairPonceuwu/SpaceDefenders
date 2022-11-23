@@ -9,8 +9,7 @@ public:
     Nave();
     virtual ~Nave();
     void update(float delta);
-    void draw();
-    void muerto();
+    void draw(GLuint texture);
 
     // mapa de teclas
     // 0 - izq

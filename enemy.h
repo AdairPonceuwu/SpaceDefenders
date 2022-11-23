@@ -1,23 +1,16 @@
 #ifndef ENEMY_H
 #define ENEMY_H
 
+#include "entity.h"
 
-class Enemy
-{
-    public:
-        Enemy(float x, float y, float z, float angulo);
-        Enemy();
-        virtual ~Enemy();
-        float enemy_radio = .45f;
-        float enemigo_velocidad = .00015f;
-        float V[3];
-        bool condicion; // true vivo, false muerto
-        float angulo;
-        void updateEnemy(float angulo);
-        void muerto();
-    protected:
+class Enemy : public Entity {
+public:
+    Enemy(float x, float y, float z, float angulo);
+    Enemy();
+    virtual ~Enemy();
 
-    private:
+    void update();
+    void draw(GLuint texture);
 };
 
 #endif // ENEMY_H

@@ -1,6 +1,8 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
+#include <GL/glut.h>
+
 class Entity {
 public:
     float radio,
