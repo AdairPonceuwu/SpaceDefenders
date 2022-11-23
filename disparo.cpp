@@ -8,7 +8,8 @@ Disparo::Disparo(float x, float y, float z) {
     V[0] = x;
     V[1] = y;
     V[2] = z;
-    radio = disparoRadio;
+    radio = 0.08;
+    velocidad = 0.005;
 }
 
 Disparo::~Disparo() {}
@@ -17,7 +18,7 @@ void Disparo::update(float delta) {
     V[2] -= velocidad * delta;
 
     if (V[2] < -18) {
-        fuera_de_rango = true;
+        mata();
     }
 }
 
