@@ -1,22 +1,22 @@
 w
-aaaaa
-aaaaa
-aaaaa
-aaaaa
-aaaaa
+aaaaaa
+aaaaaa
+aaaaaa
+aaaaaa
+aaaaaa
 
 w
- aaa 
-aA Aa
-aaAaa
- aaa 
-aaAaa
-aA Aa
- aaa 
+.aaaa.
+aA..Aa
+aaAAaa
+.aaaa.
+aaAAaa
+aA..Aa
+.aaaa.
 
 w
-Araar
-rAaar
-raAar
-raaAr
-raarA
+Araaar
+rAaaar
+raAaar
+raaAar
+raaaAr
