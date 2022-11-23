@@ -132,3 +132,31 @@ void Scene::draw() {
         enemies[i].draw();
     }
 }
+
+
+void Scene::gen_enemy_wave() {
+    if (active_wave) {
+        return;
+    }
+
+    const float X_SPACE = 0.5,
+                X_BOTTOM = -4,
+                Z_SPACE = -0.8,
+                Z_BOTTOM = -20;
+
+    active_wave = true;
+    Enemy e;
+
+    for (int i = 0; i < 6; ++i) {
+        for (int j = 0; j < 5; ++j) {
+            e = Enemy(
+                X_BOTTOM + i + (i * X_SPACE),
+                0,
+                Z_BOTTOM - j + (j * Z_SPACE),
+                rand() % 360
+            );
+            e.set_obj((i % 2 == 0) ? &objects[0] : &objects[1]);
+            enemies.push_back(e);
+        }
+    }
+}

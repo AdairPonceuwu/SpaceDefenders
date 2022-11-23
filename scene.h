@@ -31,6 +31,9 @@ public:
     void dispara();
     void update();
     void draw();
+    void gen_enemy_wave();
+private:
+    bool active_wave = false;
 };
 
 #endif // SD_SCENE

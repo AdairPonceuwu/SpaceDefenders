@@ -34,26 +34,6 @@ GLfloat anguloSol = 0.0f;
 
 float luz_difusa[] = {1, 1, 1, 0};
 
-
-//Dibujar enemigos
-void cargarEnemigos() {
-    int i = 0;
-    float x=0;
-    float z=0;
-    for (int r = 0; r < 6; r++) {
-        for (int c = 0; c < 5; c++) {
-            Enemy e = Enemy(-4.5 + r + 0.5f + x, 0, -20 + c + z, rand() % 360);
-            e.set_obj((i % 2 == 0) ? &s.objects[0] : &s.objects[1]);
-            s.enemies.push_back(e);
-            z += 0.5;
-            ++i;
-        }
-        x += 0.6;
-        z = 0;
-    }
-    printf("%d\n", i);
-}
-
 static void keyboardDown(BYTE key, int x, int y) {
     switch (key) {
         case 'a':
@@ -75,7 +55,7 @@ static void keyboardDown(BYTE key, int x, int y) {
         case 'r':
         case 'R':
             if(s.nave.vivo){
-                cargarEnemigos();
+                s.gen_enemy_wave();
                 printf("Juego iniciado\n");
             }
             break;
