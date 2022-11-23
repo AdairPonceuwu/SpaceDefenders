@@ -48,7 +48,7 @@ void Nave::update(float delta) {
     }
 }
 
-void Nave::draw(GLuint texture) {
+void Nave::draw(GLuint *texture) {
     if (!vivo){
         printf("GAME OVER\n");
         exit(1);

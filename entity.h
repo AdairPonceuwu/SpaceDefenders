@@ -12,7 +12,7 @@ public:
     bool vivo = true;
 
     virtual void update() {};
-    virtual void draw(GLuint texture) {};
+    virtual void draw(GLuint *texture) {};
     virtual void mata() {
         vivo = false;
     };
