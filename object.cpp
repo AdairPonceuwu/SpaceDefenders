@@ -117,7 +117,7 @@ int* Object::parse_face_line(std::string line) {
     c_line[size] = 0;
     char *tok = strtok(c_line, " ");
     while (tok) {
-        out[i++] = atoi(tok);
+        out[i++] = atoi(tok) - 1;
         tok = strtok(NULL, " ");
     }
 
