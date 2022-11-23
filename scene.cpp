@@ -150,7 +150,7 @@ void Scene::update(int delta) {
 
     // avanza disparos
     for (int i = 0; i < disparos.size(); ++i) {
-        disparos[i].update(10);
+        disparos[i].update(d);
     }
 
     // avanza enemigos
