@@ -11,7 +11,7 @@
 #include "colisionador.h"
 
 #define NTextures 20
-#define NObjects 3
+#define NObjects 4
 #define NDisparos 30
 #define NEnemies 30
 
@@ -27,6 +27,7 @@ public:
     Scene();
     Enemy alien1(float x, float y, float z, float angulo);
     Enemy alien2(float x, float y, float z, float angulo);
+    Enemy roca(float x, float y, float z, float angulo);
 
     void init();
     void dispara();

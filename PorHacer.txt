@@ -9,6 +9,7 @@ Lista:
 - Variar rocas
 - Cambiar idioma a inglés
 - Quitar números mágicos
+- bug: Algunos disparos matan más de un enemigo
 
 Extra:
 - Averiguar que chingados con los sistemas solares

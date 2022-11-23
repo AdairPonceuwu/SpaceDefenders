@@ -9,7 +9,7 @@ Enemy::Enemy(float x, float y, float z, float angulo) {
     move(x, y, z);
     scale(0.5);
     R[1] = 1.0;
-    radio = 0.45f;
+    radio = 1.2f;
     velocidad = 0.00015f;
     this->angulo = angulo;
     printf("crea enemigo!\n");
@@ -38,7 +38,7 @@ void Enemy::draw() {
     glRotated(angulo, R[0], R[1], R[2]);
     glScaled(S[0], S[1], S[2]);
     //drawCone(*texture);
-    //drawSphere(radio, 10, 10, 0);
     obj->draw();
+    //drawSphere(radio, 10, 10, 0);
     glPopMatrix();
 }

@@ -28,6 +28,15 @@ Enemy Scene::alien2(float x, float y, float z, float angulo) {
     return e;
 }
 
+Enemy Scene::roca(float x, float y, float z, float angulo) {
+    Enemy e = Enemy(x, y, z, angulo);
+    e.scale(0.4);
+    e.radio = 1.8;
+    e.set_obj(&objects[3]);
+
+    return e;
+}
+
 void Scene::init() {
     const int T = 17;
     char *archivos[T] = {
@@ -57,6 +66,7 @@ void Scene::init() {
     objects[0] = Object("modelos/alien.obj", &texture_map[2]);
     objects[1] = Object("modelos/alien.obj", &texture_map[4]);
     objects[2] = Object("modelos/nave.obj", &texture_map[5]);
+    objects[3] = Object("modelos/piedra.obj", &texture_map[16]);
     nave.set_obj(&objects[2]);
 
     load_waves("oleadas/oleadas.ol");
@@ -230,6 +240,10 @@ void Scene::gen_enemy_wave() {
                 break;
             case 'A':
                 e = alien2(x, 0, z, rand() % 360);
+                enemies.push_back(e);
+                break;
+            case 'r':
+                e = roca(x, 0, z, rand() % 360);
                 enemies.push_back(e);
                 break;
             }
