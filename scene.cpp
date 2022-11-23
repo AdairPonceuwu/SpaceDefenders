@@ -9,29 +9,30 @@
 #include "enemy.h"
 #include "utils.h"
 
+const int ENEMIES_PER_ROW = 6;
+
 Scene::Scene() {
     disparos.reserve(NDisparos);
     enemies.reserve(NEnemies);
 }
 
 Enemy Scene::alien1(float x, float y, float z, float angulo) {
-    Enemy e = Enemy(x, y, z, angulo);
+    Enemy e = Enemy(x, y, z, angulo, 1.2);
     e.set_obj(&objects[0]);
 
     return e;
 }
 
 Enemy Scene::alien2(float x, float y, float z, float angulo) {
-    Enemy e = Enemy(x, y, z, angulo);
+    Enemy e = Enemy(x, y, z, angulo, 1.2);
     e.set_obj(&objects[1]);
 
     return e;
 }
 
 Enemy Scene::roca(float x, float y, float z, float angulo) {
-    Enemy e = Enemy(x, y, z, angulo);
+    Enemy e = Enemy(x, y, z, angulo, 1.8);
     e.scale(0.4);
-    e.radio = 1.8;
     e.set_obj(&objects[3]);
 
     return e;
@@ -106,7 +107,7 @@ void Scene::load_waves(char *filename) {
     while (getline(file, line)) {
         trim(line);
         assert(
-           line.length() <= 6 &&
+           line.length() <= ENEMIES_PER_ROW &&
            "No se permiten oleadas de más de 5 enemigos por fila."
        );
 
@@ -123,7 +124,7 @@ void Scene::load_waves(char *filename) {
             wave.push_back(line[i]);
         }
         // completa línea
-        for (int i = 0; i < 6 - line.length(); ++i) {
+        for (int i = 0; i < ENEMIES_PER_ROW - line.length(); ++i) {
             wave.push_back(' ');
         }
     }
@@ -223,7 +224,7 @@ void Scene::gen_enemy_wave() {
     int c = 0, j = 0;
 
     while (c < waves[wave_index].size()) {
-        for (int i = 0; i < 6; ++i) {
+        for (int i = 0; i < ENEMIES_PER_ROW; ++i) {
             x = X_BOTTOM + i + (i * X_SPACE);
             z = Z_BOTTOM - j + (j * Z_SPACE);
 

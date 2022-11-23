@@ -5,19 +5,14 @@
 #include "enemy.h"
 #include "utils.h"
 
-Enemy::Enemy(float x, float y, float z, float angulo) {
+Enemy::Enemy(float x, float y, float z, float angulo, float rad) {
     move(x, y, z);
     scale(0.5);
-    R[1] = 1.0;
-    radio = 1.2f;
-    velocidad = 0.00015f;
-    this->angulo = angulo;
+    rotate(angulo, 0, 1, 0);
+    radio = rad;
 }
 
-Enemy::Enemy() {
-    radio = 0.45f;
-    velocidad = 0.00015f;
-}
+Enemy::Enemy() {}
 
 Enemy::~Enemy() {}
 

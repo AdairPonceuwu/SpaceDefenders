@@ -6,17 +6,20 @@
 #include "object.h"
 #include "utils.h"
 
+const float PLAYER_SPEED = 0.0055f;
+const float PLAYER_RAD = 0.25;
+
 Nave::Nave(float x, float y, float z) {
     move(x, y, z);
     scale(0.3);
-    velocidad = 0.0055f;
-    radio = 0.25f;
+    velocidad = PLAYER_SPEED;
+    radio = PLAYER_RAD;
 }
 
 Nave::Nave() {
-    velocidad = 0.0055f;
-    radio = 0.25f;
     scale(0.3);
+    velocidad = PLAYER_SPEED;
+    radio = PLAYER_RAD;
 }
 
 Nave::~Nave() {}

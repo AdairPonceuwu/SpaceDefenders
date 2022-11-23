@@ -5,7 +5,7 @@
 
 class Enemy : public Entity {
 public:
-    Enemy(float x, float y, float z, float angulo);
+    Enemy(float x, float y, float z, float angulo, float rad);
     Enemy();
     virtual ~Enemy();
 
