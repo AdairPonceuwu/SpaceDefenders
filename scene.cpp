@@ -35,6 +35,8 @@ void Scene::init() {
     for (int i = 0; i < T; ++i) {
         load_texture(archivos[i], i);
     }
+
+    objects[0] = Object("modelos/piedra.obj", &texture_map[4]);
 }
 
 void Scene::load_texture(char *filename, int index) {
@@ -69,18 +71,6 @@ void Scene::dispara() {
         disparos.push_back(Disparo(x, y, z));
         std::cout << "Disparando!" << std::endl;
     }
-}
-
-void Scene::draw_objects() {
-    assert(false && "draw_objects not implemented!");
-}
-
-void Scene::draw_player() {
-    assert(false && "draw_player not implemented!");
-}
-
-void Scene::reset() {
-    assert(false && "reset not implemented!");
 }
 
 void Scene::update() {
@@ -127,7 +117,7 @@ void Scene::update() {
 
 void Scene::draw() {
     // dibuja nave
-    nave.draw(0);
+    nave.draw(&objects[0]);
 
     // dibuja disparos
     for (int i = 0; i < disparos.size(); ++i) {
