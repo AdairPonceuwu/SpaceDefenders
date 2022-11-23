@@ -1,9 +1,13 @@
 #include <cassert>
+#include <string>
+#include <fstream>
+#include <vector>
 #include <iostream>
 
 #include "scene.h"
 #include "object.h"
 #include "enemy.h"
+#include "utils.h"
 
 Scene::Scene() {
     disparos.reserve(NDisparos);
@@ -40,6 +44,8 @@ void Scene::init() {
     objects[1] = Object("modelos/alien.obj", &texture_map[4]);
     objects[2] = Object("modelos/nave.obj", &texture_map[5]);
     nave.set_obj(&objects[2]);
+
+    load_waves("oleadas/oleadas.ol");
 }
 
 void Scene::load_texture(char *filename, int index) {
@@ -63,6 +69,44 @@ void Scene::load_texture(char *filename, int index) {
     glTexImage2D(GL_TEXTURE_2D, 0, 3, theTexMap.GetNumCols(), theTexMap.GetNumRows(), 0,
                      GL_RGB, GL_UNSIGNED_BYTE, theTexMap.ImageData());
     theTexMap.Reset();
+}
+
+void Scene::load_waves(char *filename) {
+    std::ifstream file;
+    std::string line = "";
+
+    file.open(filename);
+    std::cout << "Cargando oleadas" << std::endl;
+    std::vector<char> wave;
+
+    while (getline(file, line)) {
+        trim(line);
+        assert(
+           line.length() <= 5 &&
+           "No se permiten oleadas de más de 5 enemigos por fila."
+       );
+
+        if (line[0] == 'w') {
+            if (wave.size() != 0) {
+                waves.push_back(wave);
+            }
+
+            wave.clear();
+            continue;
+        }
+
+        for (int i = 0; i < line.length(); ++i) {
+            wave.push_back(line[i]);
+        }
+        // completa línea
+        for (int i = 0; i < 5 - line.length(); ++i) {
+            wave.push_back(' ');
+        }
+    }
+
+    if (wave.size() != 0) {
+        waves.push_back(wave);
+    }
 }
 
 void Scene::dispara() {
@@ -134,9 +178,13 @@ void Scene::draw() {
     }
 }
 
-
 void Scene::gen_enemy_wave() {
     if (active_wave) {
+        return;
+    }
+
+    if (wave_index > waves.size()) {
+        std::cout << "No hay más oleadas" << std::endl;
         return;
     }
 
@@ -148,16 +196,17 @@ void Scene::gen_enemy_wave() {
     active_wave = true;
     Enemy e;
 
+    float x, z;
+
     for (int i = 0; i < 6; ++i) {
         for (int j = 0; j < 5; ++j) {
-            e = Enemy(
-                X_BOTTOM + i + (i * X_SPACE),
-                0,
-                Z_BOTTOM - j + (j * Z_SPACE),
-                rand() % 360
-            );
-            e.set_obj((i % 2 == 0) ? &objects[0] : &objects[1]);
+            x = X_BOTTOM + i + (i * X_SPACE);
+            z = Z_BOTTOM - j + (j * Z_SPACE);
+
+            e = alien1(x, 0, z, rand() % 360);
+            //e.set_obj((i % 2 == 0) ? &objects[0] : &objects[1]);
             enemies.push_back(e);
         }
     }
+    wave_index++;
 }

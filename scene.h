@@ -27,13 +27,17 @@ public:
     Scene();
 
     void init();
-    void load_texture(char *filename, int index);
     void dispara();
     void update();
     void draw();
     void gen_enemy_wave();
 private:
+    void load_texture(char *filename, int index);
+    void load_waves(char *filename);
+
     bool active_wave = false;
+    int wave_index = 0;
+    std::vector<std::vector<char>> waves;
 };
 
 #endif // SD_SCENE
