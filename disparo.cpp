@@ -3,13 +3,15 @@
 #include "disparo.h"
 #include "utils.h"
 
+const float SHOT_SPEED = 4.0f;
+
 Disparo::Disparo() {}
 Disparo::Disparo(float x, float y, float z) {
     V[0] = x;
     V[1] = y;
     V[2] = z;
     radio = 0.08;
-    velocidad = 0.005;
+    velocidad = SHOT_SPEED;
 }
 
 Disparo::~Disparo() {}

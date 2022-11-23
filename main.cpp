@@ -315,6 +315,7 @@ void display() {
     delta_t = glutGet(GLUT_ELAPSED_TIME);
     s.update(delta_t - odelta_t);
     odelta_t = delta_t;
+
     drawAxis();
     s.draw();
     // drawSistemaEstrellas();

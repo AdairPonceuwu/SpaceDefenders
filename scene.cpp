@@ -145,16 +145,17 @@ void Scene::dispara() {
 }
 
 void Scene::update(int delta) {
-    nave.update(10);
+    float d = (float)delta / 1000.0;
+    nave.update(d);
 
     // avanza disparos
     for (int i = 0; i < disparos.size(); ++i) {
-        disparos[i].update(10);
+        disparos[i].update(d);
     }
 
     // avanza enemigos
     for (int i = 0; i < enemies.size(); ++i) {
-        enemies[i].update();
+        enemies[i].update(d);
 
         // checa colisiones con nave
         if (c.checa(&nave, &enemies[i])) {
