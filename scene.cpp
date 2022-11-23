@@ -86,36 +86,41 @@ void Scene::reset() {
 void Scene::update() {
     nave.update(10);
 
-    bool d_elim[NDisparos] = { false };
-    bool e_elim[NEnemies] = { false };
-    int r = 0;
-
     // avanza disparos
     for (int i = 0; i < disparos.size(); ++i) {
         disparos[i].update(10);
-        if (!disparos[i].vivo) {
-            d_elim[i] = true;
-        }
     }
 
     // avanza enemigos
     for (int i = 0; i < enemies.size(); ++i) {
         enemies[i].update();
-        if (!enemies[i].vivo) {
-            e_elim[i] = true;
+
+        // checa colisiones con nave
+        if (c.checa(&nave, &enemies[i])) {
+            nave.mata();
+        }
+    }
+
+    // checa colisiones enemigo con disparo
+    for (int i = 0; i < disparos.size(); ++i) {
+        for (int j = 0; j < enemies.size(); ++j) {
+            if (c.checa(&disparos[i], &enemies[j])) {
+                disparos[i].mata();
+                enemies[j].mata();
+            }
         }
     }
 
     // elimina aquellos que se salieron de rango
-    for (int i = 0; i < disparos.size(); ++i) {
-        if (d_elim[i]) {
-            disparos.erase(disparos.begin() + i - (r++));
+    for (auto i = disparos.begin(); i < disparos.end(); ++i) {
+        if (!i->vivo) {
+            disparos.erase(i);
         }
     }
-    r = 0;
-    for (int i = 0; i < enemies.size(); ++i) {
-        if (e_elim[i]) {
-            enemies.erase(enemies.begin() + i - (r++));
+
+    for (auto i = enemies.begin(); i < enemies.end(); ++i) {
+        if (!i->vivo) {
+            enemies.erase(i);
         }
     }
 }

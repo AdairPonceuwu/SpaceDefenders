@@ -3,6 +3,7 @@
 #include <GL/glut.h>
 
 #include "nave.h"
+#include "utils.h"
 
 Nave::Nave(float x, float y, float z) {
     V[0] = x;
@@ -57,5 +58,6 @@ void Nave::draw(GLuint *texture) {
     glTranslated(V[0], V[1], V[2]);
     glRotated(180, 1, 0, 0);
     glutSolidCone(radio, 0.8, 100, 100);
+    //drawSphere(radio, 10, 10, 0);
     glPopMatrix();
 }

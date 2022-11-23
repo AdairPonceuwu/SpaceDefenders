@@ -1,5 +1,5 @@
 Lista:
-- Quitar código sin uso
+- Cada objeto debe saber cuál es su textura
 - Implementar oleadas de meteoritos
 - Implementar sistemas de vidas
 - Implementar importación de figuras

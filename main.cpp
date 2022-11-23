@@ -297,9 +297,7 @@ void drawSistemaRocka(){
 //Modificar posciones
 void update(){
     //Enemigos
-    for(int i=0; i < s.enemies.size(); i++){
-        s.enemies[i].update();
-    }
+
     /*
     //
     //Colisiones
