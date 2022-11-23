@@ -3,9 +3,11 @@
 
 #include "scene.h"
 #include "object.h"
+#include "enemy.h"
 
 Scene::Scene() {
     disparos.reserve(NDisparos);
+    enemies.reserve(NEnemies);
 }
 
 void Scene::init() {
@@ -67,14 +69,6 @@ void Scene::dispara() {
         disparos.push_back(Disparo(x, y, z));
         std::cout << "Disparando!" << std::endl;
     }
-}
-
-void Scene::add_object(Object o) {
-    assert(false && "add_object not implemented!");
-}
-
-void Scene::kill_object(Object *o) {
-    assert(false && "kill_object not implemented!");
 }
 
 void Scene::draw_objects() {

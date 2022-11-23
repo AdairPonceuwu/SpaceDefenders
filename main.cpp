@@ -31,31 +31,25 @@ const float FOV_Y = 60.6,
 Scene s = Scene();
 
 GLfloat anguloSol = 0.0f;
-//Enemies respawn
-Enemy arrEnemies[30];
-Enemy arrEnemiesRocks[30];
-float delta = 0.0000005;
 
 float luz_difusa[] = {1, 1, 1, 0};
 
 
 //Dibujar enemigos
-void cargarEnemigos(){
-    int i=0;
+void cargarEnemigos() {
+    int i = 0;
     float x=0;
     float z=0;
-    while(i<30) {
-        for (int r = 0; r < 10; r++) {
-            for (int c = 0; c < 5; c++) {
-                arrEnemies[i]=(Enemy((-8/ 2) + r +0.5f+x, 0, -20 + c+z,rand() % 360));
-                //arrEnemiesRocks[i]=(Enemy((-8/ 2) + r +0.5f+x, 0, -20 + c+z,rand() % 360));
-                i++;
-                z+=0.5;
-            }
-            x+=0.6;
-            z=0;
+    for (int r = 0; r < 6; r++) {
+        for (int c = 0; c < 5; c++) {
+            s.enemies.push_back(Enemy(-4.5 + r +0.5f+x, 0, -20 + c+z,rand() % 360));
+            z+=0.5;
+            ++i;
         }
+        x+=0.6;
+        z=0;
     }
+    printf("%d\n", i);
 }
 
 static void keyboardDown(BYTE key, int x, int y) {
@@ -107,8 +101,6 @@ void keyboardUp(BYTE key, int x, int y) {
             break;
         case 'L':
         case 'l':
-            //arrDisparos[shoots] = (Disparo(s.nave.V[0],s.nave.V[1],s.nave.V[2]-.85f,true));
-            //shoots++;
             s.dispara();
     }
     glutPostRedisplay();
@@ -116,10 +108,9 @@ void keyboardUp(BYTE key, int x, int y) {
 
 //Dibujar enemigos
 void dibujarEnemies(){
-    Enemy enemigo = Enemy();
-    for(int i = 0; i < 30; i++){
-        enemigo = arrEnemies[i];
-        if(arrEnemies[i].condicion && arrEnemies[i].V[2] != 0){
+    for(int i = 0; i < s.enemies.size(); i++){
+        Enemy enemigo = s.enemies[i];
+        if(s.enemies[i].vivo && s.enemies[i].V[2] != 0){
             glPushMatrix();
             //glScaled(1,1,1);
             glTranslated(enemigo.V[0], enemigo.V[1], enemigo.V[2]);
@@ -325,21 +316,10 @@ void drawSistemaRocka(){
 //Modificar posciones
 void update(){
     //Enemigos
-    for(int i=0; i < 30; i++){
-        delta = delta + 0.000005;
-        arrEnemies[i].updateEnemy(delta);
+    for(int i=0; i < s.enemies.size(); i++){
+        s.enemies[i].update();
     }
-    //
-    //Disparos
     /*
-    for(int i = 0; i < 200; i++){
-        arrDisparos[i];
-        deltaS = deltaS+.0008;
-        arrDisparos[i].update(deltaS);
-        if (arrDisparos[i].V[2] < -25 || arrDisparos[i].V[2] > 5){
-            arrDisparos[i].disparo = false;
-        }
-    }
     //
     //Colisiones
     for(int i = 0; i < 30; i++) {
