@@ -9,7 +9,9 @@ public:
     float radio,
           velocidad,
           angulo,
-          V[3];
+          V[3] = { 0 },
+          S[3] = { 0 },
+          R[3] = { 0 };
     bool vivo = true;
     Object *obj;
 

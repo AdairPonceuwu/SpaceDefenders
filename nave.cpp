@@ -10,6 +10,9 @@ Nave::Nave(float x, float y, float z) {
     V[0] = x;
     V[1] = y;
     V[2] = z;
+    S[0] = 0.3;
+    S[1] = 0.3;
+    S[2] = 0.3;
     velocidad = 0.0055f;
     radio = 0.25f;
 }
@@ -17,6 +20,9 @@ Nave::Nave(float x, float y, float z) {
 Nave::Nave() {
     velocidad = 0.0055f;
     radio = 0.25f;
+    S[0] = 0.3;
+    S[1] = 0.3;
+    S[2] = 0.3;
 }
 
 Nave::~Nave() {}
@@ -58,9 +64,10 @@ void Nave::update(float delta) {
 void Nave::draw() {
     glPushMatrix();
     glTranslated(V[0], V[1], V[2]);
-    glRotated(180, 1, 0, 0);
+    //glRotated(180, 1, 0, 0);
+    glScaled(S[0], S[1], S[2]);
     //glutSolidCone(radio, 0.8, 100, 100);
-    drawSphere(radio, 10, 10, 0);
-    //obj->draw();
+    //drawSphere(radio, 10, 10, 0);
+    obj->draw();
     glPopMatrix();
 }

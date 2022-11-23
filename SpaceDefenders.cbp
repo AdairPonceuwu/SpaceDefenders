@@ -45,10 +45,12 @@
 			<Add directory="C:/Program Files/CodeBlocks/MinGW/lib" />
 		</Linker>
 		<Unit filename=".gitignore" />
-		<Unit filename="disparos.cpp" />
-		<Unit filename="disparos.h" />
+		<Unit filename="colisionador.h" />
+		<Unit filename="disparo.cpp" />
+		<Unit filename="disparo.h" />
 		<Unit filename="enemy.cpp" />
 		<Unit filename="enemy.h" />
+		<Unit filename="entity.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="nave.cpp" />
 		<Unit filename="nave.h" />
