@@ -19,7 +19,7 @@
 			</Target>
 			<Target title="Release">
 				<Option output="bin/Release/SpaceDefenders" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="C:/Program Files/CodeBlocks/MinGW/bin" />
+				<Option working_dir="D:/CodeBlocks/MinGW/bin" />
 				<Option object_output="obj/Release/" />
 				<Option type="0" />
 				<Option compiler="gcc" />
@@ -34,7 +34,7 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
-			<Add directory="C:/Program Files/CodeBlocks/MinGW/include" />
+			<Add directory="D:/CodeBlocks/MinGW/include" />
 		</Compiler>
 		<Linker>
 			<Add library="freeglut" />
@@ -42,7 +42,7 @@
 			<Add library="glu32" />
 			<Add library="winmm" />
 			<Add library="gdi32" />
-			<Add directory="C:/Program Files/CodeBlocks/MinGW/lib" />
+			<Add directory="D:/CodeBlocks/MinGW/lib" />
 		</Linker>
 		<Unit filename=".gitignore" />
 		<Unit filename="colisionador.h" />

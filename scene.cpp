@@ -39,12 +39,12 @@ Enemy Scene::roca(float x, float y, float z, float angulo) {
 }
 
 void Scene::init() {
-    const int T = 17;
+    const int T = 18;
     char *archivos[T] = {
         "texturas/Estrella.bmp",
-        "texturas/Laser3.bmp",
+        "texturas/Enemigos.bmp",
         "texturas/Enemigo4.bmp",
-        "texturas/Laser4.bmp",
+        "texturas/Laser.bmp",
         "texturas/Enemigos3.bmp",
         "texturas/Planetas/jupiter.bmp",
         "texturas/Fondo13.bmp",
@@ -58,6 +58,7 @@ void Scene::init() {
         "texturas/Planetas/marte.bmp",
         "texturas/Asteroide.bmp",
         "texturas/Planetas/Asteroide3.bmp",
+        "texturas/Enemigos2.bmp",
     };
 
     for (int i = 0; i < T; ++i) {
@@ -66,7 +67,7 @@ void Scene::init() {
 
     objects[0] = Object("modelos/alien.obj", &texture_map[2]);
     objects[1] = Object("modelos/alien.obj", &texture_map[4]);
-    objects[2] = Object("modelos/nave.obj", &texture_map[5]);
+    objects[2] = Object("modelos/nave.obj", &texture_map[17]);
     objects[3] = Object("modelos/piedra.obj", &texture_map[16]);
     nave.set_obj(&objects[2]);
 

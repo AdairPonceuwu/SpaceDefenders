@@ -13,6 +13,7 @@ using namespace std;
 #include "enemy.h"
 #include "disparos.h"
 
+
 //Sistema Solar
 int year=0, day=0;
 int year_1=0,day_1=0;
@@ -30,6 +31,8 @@ const float FOV_Y = 60.6,
 int delta_t = 0, odelta_t = 0;
 
 Scene s = Scene();
+
+int rondas=0;
 
 GLfloat anguloSol = 0.0f;
 
@@ -56,6 +59,7 @@ static void keyboardDown(BYTE key, int x, int y) {
         case 'r':
         case 'R':
             if(s.nave.vivo) {
+                rondas++;
                 s.gen_enemy_wave();
             }
             break;
@@ -81,9 +85,16 @@ void keyboardUp(BYTE key, int x, int y) {
         case 'S':
             s.nave.teclas[3] = false;
             break;
+
         case 'L':
         case 'l':
             s.dispara();
+            break;
+
+        case 'b':
+        case 'B':
+            exit(1);
+            break;
     }
     glutPostRedisplay();
 }
@@ -192,25 +203,11 @@ void drawSistemaSolar(){
 
     glPopMatrix();
 }
-//Dibujando estrellas
-/*void drawSistemaEstrellas(){
-    glPushMatrix();
-    glScaled(2,2,2);
-    glTranslated(-6,-5,-10);
-    glRotated(day,0.0,1.0,0.0);
-    drawStar(&anguloSol,s.texture_map[1]);
-    glPushMatrix();
-    glRotated(satelite,1.0,0.0,0.0);
-    glScaled(0.5,0.5,0.5);
-    glTranslated(0,1.5,0);
-    drawStar(&anguloSol,s.texture_map[0]);
-    glPopMatrix();
-    glPopMatrix();
-}*/
+//Dibujando Sistema de rocas
 void drawSistemaRocka(){
 
     glPushMatrix();
-    glScaled(0.9, 0.9, 0.9);
+    glScaled(1.2, 1.2, 1.2);
     glTranslated(-7, -5, -10);
     glRotated(solE, 0.0, 1.0, 0.0);
     drawStar(&anguloSol, s.texture_map[1]);
@@ -276,10 +273,10 @@ void drawSistemaRocka(){
     glPopMatrix();
 
 }
-//Modificar posciones
+//Modificar posiciones
 void update(){
     //Sistema Solar
-    DWORD TiempoActual = 0;
+    DWORD TiempoActual = 0; //DWORD: Secuencia de 32 bits, usado para datos de tiempo
     DWORD LastUpdate = 0;
     DWORD Lapso = 0;
     TiempoActual = GetTickCount();
@@ -308,7 +305,140 @@ void luz(){
     glLoadIdentity();
 }
 
+void escribirPantalla()
+{
+
+    glDisable(GL_LIGHTING);
+
+    if(rondas==0)
+    {
+        char texto2[16]= {'C','o','m','e','n','z','a','r',' ','j','u','e','g','o',':','R'};
+        glRasterPos3d(-10.03,2.75,-9);
+        for(int i=0; i<16; i++)
+        {
+            glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,texto2[i]);
+        }
+    }
+    else
+    {
+
+        if(rondas==1)
+        {
+            char texto[16]= {'R','o','u','n','d',' ','1'};
+
+            glColor3d(1.0f, 1.0f, 1.0f);//white
+            glRasterPos3d(-10.03,2.75,-9);
+            for(int i=0; i<16; i++)
+            {
+                glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,texto[i]);
+            }
+
+            char texto2[16]= {'C','o','n','t','i','n','u','a','r',' ',':','R'};
+            glRasterPos3d(-10.2,2.5,-9);
+            for(int i=0; i<16; i++)
+            {
+                glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,texto2[i]);
+            }
+        }
+        if(rondas==2)
+        {
+            char texto[7]= {'R','o','u','n','d',' ','2'};
+
+            glColor3d(1.0f, 1.0f, 1.0f);//white
+            glRasterPos3d(-10.03,2.75,-9);
+            for(int i=0; i<7; i++)
+            {
+                glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,texto[i]);
+            }
+
+            char texto2[16]= {'C','o','n','t','i','n','u','a','r',' ',':','R'};
+            glRasterPos3d(-10.2,2.5,-9);
+            for(int i=0; i<16; i++)
+            {
+                glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,texto2[i]);
+            }
+
+        }
+
+        if(rondas==3)
+        {
+            char texto[7]= {'R','o','u','n','d',' ','3'};
+
+            glColor3d(1.0f, 1.0f, 1.0f);
+            glRasterPos3d(-10.03,2.75,-9);
+            for(int i=0; i<7; i++)
+            {
+                glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,texto[i]);
+            }
+
+            char texto2[16]= {'S','a','l','i','r',':','B'};
+            glRasterPos3d(-10.2,2.5,-9);
+            for(int i=0; i<16; i++)
+            {
+                glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,texto2[i]);
+            }
+
+        }
+
+        if(rondas<4)
+        {
+            char texto3[10]= {'A','d','e','l','a','n','t','e',':','W'};
+            glRasterPos3d(-10.4,2.2,-9);
+            for(int i=0; i<10; i++)
+            {
+                glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,texto3[i]);
+            }
+
+            char texto4[7]= {'A','t','r','a','s',':','S'};
+            glRasterPos3d(-10.59,1.90,-9);
+            for(int i=0; i<7; i++)
+            {
+                glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,texto4[i]);
+            }
+
+            char texto5[9]= {'D','e','r','e','c','h','a',':','D'};
+            glRasterPos3d(-10.78,1.60,-9);
+            for(int i=0; i<9; i++)
+            {
+                glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,texto5[i]);
+            }
+
+            char texto6[11]= {'I','z','q','u','i','e','r','d','a',':','A'};
+            glRasterPos3d(-10.98,1.30,-9);
+            for(int i=0; i<11; i++)
+            {
+                glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,texto6[i]);
+            }
+
+            char texto7[10]= {'D','i','s','p','a','r','a','r',':','L'};
+            glRasterPos3d(-11.18,0.95,-9);
+            for(int i=0; i<10; i++)
+            {
+                glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,texto7[i]);
+            }
+        }else
+    {
+        char texto2[16]= {'S','a','l','i','r',':','B'};
+        glRasterPos3d(-10.2,2.5,-9);
+        for(int i=0; i<16; i++)
+        {
+            glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,texto2[i]);
+        }
+
+        char texto3[18]= {'N','o',' ','h','a','y',' ','m','a','s',' ','o','l','e','a','d','a','s'};
+        glRasterPos3d(-10.01,2.8,-9);
+        for(int i=0; i<18; i++)
+        {
+            glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,texto3[i]);
+        }
+    }
+
+    }
+   glEnable(GL_LIGHTING);
+}
+
 void display() {
+
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     update();
 
@@ -316,9 +446,10 @@ void display() {
     s.update(delta_t - odelta_t);
     odelta_t = delta_t;
 
-    drawAxis();
+
+    //drawAxis();
     s.draw();
-    // drawSistemaEstrellas();
+    escribirPantalla();
     drawSistemaRocka();
     drawSistemaSolar();
     dibujarFondo();
@@ -361,8 +492,6 @@ int main(int argc, char **argv) {
     printf("Derecha:D\n");
     printf("Izquierda:A\n");
     printf("Disparar:L\n");
-    //glutSpecialFunc(keypress);
-    //glutSpecialUpFunc(keyrelease);
     glutMainLoop();
     return 0;
 }
