@@ -309,7 +309,7 @@ void escribirPantalla()
 {
 
     glDisable(GL_LIGHTING);
-
+    glColor3d(1.0f, 1.0f, 1.0f);//white
     if(rondas==0)
     {
         char texto2[16]= {'C','o','m','e','n','z','a','r',' ','j','u','e','g','o',':','R'};
@@ -325,8 +325,6 @@ void escribirPantalla()
         if(rondas==1)
         {
             char texto[16]= {'R','o','u','n','d',' ','1'};
-
-            glColor3d(1.0f, 1.0f, 1.0f);//white
             glRasterPos3d(-10.03,2.75,-9);
             for(int i=0; i<16; i++)
             {

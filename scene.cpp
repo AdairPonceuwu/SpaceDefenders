@@ -146,7 +146,7 @@ void Scene::dispara() {
 }
 
 void Scene::update(int delta) {
-    float d = (float)delta / 1000.0;
+    float d = (float)delta / 800.0;
     nave.update(d);
 
     // avanza disparos

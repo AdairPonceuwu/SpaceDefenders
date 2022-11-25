@@ -1,11 +1,10 @@
 #include <stdlib.h>
 #include <stdio.h>
-
 #include <GL/glut.h>
 #include "enemy.h"
 #include "utils.h"
 
-const float ENEMY_SPEED = 1.5f;
+const float ENEMY_SPEED = 2.0f;
 
 Enemy::Enemy(float x, float y, float z, float angulo, float rad) {
     move(x, y, z);
